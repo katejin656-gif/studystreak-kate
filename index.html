@@ -416,7 +416,7 @@
 
     <div class="stats-row">
       <div class="stat-card animate delay-1">
-        <div class="value" style="color:var(--accent)">248</div>
+        <div class="value" style="color:var(--accent)">273</div>
         <div class="label">Questions</div>
       </div>
       <div class="stat-card animate delay-2">
@@ -424,7 +424,7 @@
         <div class="label">Accuracy</div>
       </div>
       <div class="stat-card animate delay-3">
-        <div class="value" style="color:var(--orange)">12</div>
+        <div class="value" style="color:var(--orange)">13</div>
         <div class="label">Quizzes</div>
       </div>
     </div>
@@ -605,6 +605,42 @@ const topics = [
       { q: 'What is an isotope?', opts: ['Same element, different protons', 'Same element, different neutrons', 'Different element, same mass', 'An ion'], answer: 1, explain: 'Isotopes are atoms of the same element with different numbers of neutrons.' },
       { q: 'Which state of matter has a fixed shape?', opts: ['Gas', 'Liquid', 'Solid', 'Plasma'], answer: 2, explain: 'Solids have a definite shape and volume due to tightly packed particles.' },
       { q: 'What type of reaction releases energy?', opts: ['Endothermic', 'Exothermic', 'Synthesis', 'Decomposition'], answer: 1, explain: 'Exothermic reactions release energy as heat to the surroundings.' },
+    ]
+  },
+  {
+    id: 'economics',
+    name: 'Economics',
+    icon: '📈',
+    color: '#38bdf8',
+    questions: 25,
+    difficulty: 'Medium',
+    progress: 40,
+    quiz: [
+      { q: 'What is GDP?', opts: ['Gross Domestic Product', 'General Demand Price', 'Government Debt Plan', 'Global Distribution Protocol'], answer: 0, explain: 'GDP measures the total value of goods and services produced within a country.' },
+      { q: 'What is inflation?', opts: ['A decrease in prices', 'A general increase in prices', 'Stable prices', 'A decrease in supply'], answer: 1, explain: 'Inflation is the rate at which the general level of prices for goods and services rises.' },
+      { q: 'What is supply and demand?', opts: ['A government policy', 'A model of price determination', 'A type of tax', 'A banking system'], answer: 1, explain: 'Supply and demand is the fundamental model explaining how prices are determined in markets.' },
+      { q: 'What is a recession?', opts: ['Economic boom', 'A period of economic decline', 'Rapid inflation', 'Trade surplus'], answer: 1, explain: 'A recession is typically defined as two consecutive quarters of declining GDP.' },
+      { q: 'What does a central bank do?', opts: ['Prints money', 'Sets monetary policy', 'Collects taxes', 'Builds infrastructure'], answer: 1, explain: 'Central banks manage monetary policy, control money supply, and set interest rates.' },
+      { q: 'What is opportunity cost?', opts: ['The cost of production', 'The value of the next best alternative foregone', 'The cost of labor', 'Government spending'], answer: 1, explain: 'Opportunity cost is what you give up when choosing one option over another.' },
+      { q: 'What is a monopoly?', opts: ['A competitive market', 'A single seller dominating a market', 'A type of tax', 'A trade agreement'], answer: 1, explain: 'A monopoly exists when one company is the sole provider of a product or service.' },
+      { q: 'What is fiscal policy?', opts: ['Interest rate management', 'Government spending and taxation', 'Trade regulation', 'Banking regulation'], answer: 1, explain: 'Fiscal policy involves government decisions about spending and taxation to influence the economy.' },
+      { q: 'What is a tariff?', opts: ['A subsidy', 'A tax on imports', 'A trade agreement', 'A type of currency'], answer: 1, explain: 'A tariff is a tax imposed on imported goods to protect domestic industries.' },
+      { q: 'What is a budget deficit?', opts: ['Spending less than revenue', 'Spending more than revenue', 'Balanced budget', 'Zero spending'], answer: 1, explain: 'A budget deficit occurs when government spending exceeds its revenue.' },
+      { q: 'What is the law of demand?', opts: ['As price increases, demand increases', 'As price increases, demand decreases', 'Supply determines demand', 'Demand is fixed'], answer: 1, explain: 'The law of demand states that as price rises, quantity demanded falls, all else being equal.' },
+      { q: 'What is a market economy?', opts: ['Government controls all production', 'Decisions driven by supply and demand', 'No trade allowed', 'Only agriculture exists'], answer: 1, explain: 'In a market economy, production and prices are determined by supply and demand.' },
+      { q: 'What is a trade deficit?', opts: ['Exports exceed imports', 'Imports exceed exports', 'Balanced trade', 'No trade'], answer: 1, explain: 'A trade deficit occurs when a country imports more than it exports.' },
+      { q: 'What is an economic indicator?', opts: ['A stock price', 'A statistic used to measure economic health', 'A type of bond', 'A government agency'], answer: 1, explain: 'Economic indicators like GDP, unemployment rate, and inflation measure economic performance.' },
+      { q: 'What is elasticity in economics?', opts: ['A type of tax', 'Responsiveness of demand to price changes', 'Government flexibility', 'Market stability'], answer: 1, explain: 'Price elasticity measures how much quantity demanded changes when price changes.' },
+      { q: 'What is unemployment?', opts: ['Full employment', 'The state of being without a job while seeking work', 'Working part-time', 'Retirement'], answer: 1, explain: 'Unemployment refers to people who are actively seeking work but cannot find employment.' },
+      { q: 'What is a stock?', opts: ['A bond', 'A share of ownership in a company', 'A loan', 'A type of currency'], answer: 1, explain: 'A stock represents partial ownership (equity) in a corporation.' },
+      { q: 'What is GDP per capita?', opts: ['Total GDP', 'GDP divided by population', 'GDP minus debt', 'GDP growth rate'], answer: 1, explain: 'GDP per capita divides total GDP by population to measure average economic output per person.' },
+      { q: 'What is an externality?', opts: ['Internal cost', 'A side effect affecting third parties not involved in a transaction', 'A type of tax', 'International trade'], answer: 1, explain: 'Externalities are costs or benefits affecting third parties (e.g., pollution is a negative externality).' },
+      { q: 'What is inflation targeting?', opts: ['Eliminating inflation', 'A central bank policy to keep inflation at a set level', 'Causing deflation', 'Ignoring price changes'], answer: 1, explain: 'Inflation targeting is when a central bank sets a specific inflation rate as its goal.' },
+      { q: 'What is comparative advantage?', opts: ['Having more resources', 'Producing a good at a lower opportunity cost than others', 'Being the biggest producer', 'Having cheaper labor'], answer: 1, explain: 'Comparative advantage means producing at a lower opportunity cost, even if another producer is more efficient overall.' },
+      { q: 'What is a mixed economy?', opts: ['Pure capitalism', 'Pure communism', 'A blend of market and government intervention', 'No economy'], answer: 2, explain: 'A mixed economy combines elements of both market and planned economies.' },
+      { q: 'What is consumer surplus?', opts: ['Extra profit for producers', 'The difference between what consumers are willing to pay and what they actually pay', 'Government subsidy', 'Unused budget'], answer: 1, explain: 'Consumer surplus measures the benefit consumers receive when they pay less than their maximum willingness to pay.' },
+      { q: 'What is the multiplier effect?', opts: ['Currency multiplication', 'An initial spending leading to a larger overall economic impact', 'Interest compounding', 'Tax calculation'], answer: 1, explain: 'The multiplier effect describes how an initial injection of spending generates greater total economic activity.' },
+      { q: 'What is hyperinflation?', opts: ['Mild inflation', 'Extremely rapid and out-of-control price increases', 'Deflation', 'Stable prices'], answer: 1, explain: 'Hyperinflation is extremely fast inflation, often exceeding 50% per month, as seen in Zimbabwe and Venezuela.' },
     ]
   }
 ];
