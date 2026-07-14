@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StudyStreak</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0f0f14;
+    --card: #1a1a24;
+    --card-hover: #22222e;
+    --accent: #7c5cfc;
+    --accent-glow: rgba(124, 92, 252, 0.25);
+    --green: #34d399;
+    --red: #f87171;
+    --orange: #fb923c;
+    --yellow: #facc15;
+    --text: #e8e8ed;
+    --text-dim: #8888a0;
+    --border: #2a2a38;
+    --radius: 16px;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .app {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 20px 16px 100px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0 24px;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+  .logo-icon {
+    width: 38px; height: 38px;
+    background: linear-gradient(135deg, var(--accent), #a78bfa);
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    font-size: 20px;
+  }
+  .streak-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 8px 14px;
+    border-radius: 40px;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .streak-badge .fire { font-size: 18px; }
+
+  /* ── STATS ROW ── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 14px;
+    text-align: center;
+  }
+  .stat-card .value {
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 2px;
+  }
+  .stat-card .label {
+    font-size: 12px;
+    color: var(--text-dim);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── SECTION TITLES ── */
+  .section-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* ── TOPIC CARDS ── */
+  .topics-grid {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+  .topic-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .topic-card:hover {
+    background: var(--card-hover);
+    border-color: var(--accent);
+    transform: translateY(-1px);
+  }
+  .topic-icon {
+    width: 50px; height: 50px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    font-size: 26px;
+    flex-shrink: 0;
+  }
+  .topic-info { flex: 1; }
+  .topic-name { font-weight: 700; font-size: 16px; margin-bottom: 3px; }
+  .topic-meta { font-size: 13px; color: var(--text-dim); }
+  .topic-progress-wrap {
+    width: 100%;
+    height: 5px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 99px;
+    margin-top: 8px;
+    overflow: hidden;
+  }
+  .topic-progress-bar {
+    height: 100%;
+    border-radius: 99px;
+    background: linear-gradient(90deg, var(--accent), #a78bfa);
+    transition: width 0.6s ease;
+  }
+  .topic-arrow {
+    color: var(--text-dim);
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  /* ── QUIZ SCREEN ── */
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 10px 18px;
+    border-radius: 40px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 24px;
+    transition: background 0.2s;
+  }
+  .back-btn:hover { background: var(--card-hover); }
+
+  .quiz-header {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .quiz-topic-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .quiz-progress {
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+    margin-top: 14px;
+  }
+  .quiz-dot {
+    width: 32px; height: 5px;
+    border-radius: 99px;
+    background: var(--border);
+    transition: background 0.3s;
+  }
+  .quiz-dot.done { background: var(--green); }
+  .quiz-dot.current { background: var(--accent); }
+  .quiz-dot.wrong { background: var(--red); }
+
+  .question-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 22px;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  .question-number {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+  .question-text {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  .options {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .option-btn {
+    width: 100%;
+    text-align: left;
+    padding: 16px 20px;
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    color: var(--text);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .option-btn:hover:not(.disabled) {
+    border-color: var(--accent);
+    background: var(--card-hover);
+  }
+  .option-btn .letter {
+    width: 32px; height: 32px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.05);
+    display: grid;
+    place-items: center;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+    color: var(--text-dim);
+  }
+  .option-btn.correct {
+    border-color: var(--green);
+    background: rgba(52, 211, 153, 0.1);
+  }
+  .option-btn.correct .letter {
+    background: var(--green);
+    color: #000;
+  }
+  .option-btn.wrong {
+    border-color: var(--red);
+    background: rgba(248, 113, 113, 0.1);
+  }
+  .option-btn.wrong .letter {
+    background: var(--red);
+    color: #000;
+  }
+  .option-btn.disabled { pointer-events: none; opacity: 0.5; }
+
+  .explanation {
+    background: rgba(124, 92, 252, 0.08);
+    border: 1px solid rgba(124, 92, 252, 0.2);
+    border-radius: 14px;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #c4b5fd;
+    display: none;
+  }
+  .explanation.show { display: block; }
+  .explanation strong { color: var(--accent); }
+
+  .next-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--accent), #6d4de8);
+    border: none;
+    border-radius: 14px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.2s;
+    display: none;
+  }
+  .next-btn.show { display: block; }
+  .next-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 30px var(--accent-glow);
+  }
+
+  /* ── RESULTS SCREEN ── */
+  .results-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 40px 24px;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .results-emoji { font-size: 64px; margin-bottom: 16px; }
+  .results-title { font-size: 26px; font-weight: 800; margin-bottom: 6px; }
+  .results-sub { color: var(--text-dim); font-size: 15px; margin-bottom: 24px; }
+  .results-score {
+    font-size: 56px;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--accent), #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 4px;
+  }
+  .results-label { font-size: 14px; color: var(--text-dim); font-weight: 500; }
+  .results-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+  .results-stat .val { font-size: 22px; font-weight: 800; }
+  .results-stat .lbl { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+
+  .action-btn {
+    width: 100%;
+    padding: 16px;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.15s;
+    margin-bottom: 10px;
+  }
+  .action-btn:hover { transform: translateY(-1px); }
+  .action-primary {
+    background: linear-gradient(135deg, var(--accent), #6d4de8);
+    color: #fff;
+  }
+  .action-secondary {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate { animation: fadeUp 0.35s ease both; }
+  .delay-1 { animation-delay: 0.05s; }
+  .delay-2 { animation-delay: 0.1s; }
+  .delay-3 { animation-delay: 0.15s; }
+  .delay-4 { animation-delay: 0.2s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 420px) {
+    .stats-row { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .stat-card { padding: 12px 8px; }
+    .stat-card .value { font-size: 20px; }
+    .question-text { font-size: 17px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ===== HOME SCREEN ===== -->
+  <div id="homeScreen" class="screen active">
+    <div class="header animate">
+      <div class="logo">
+        <div class="logo-icon">📚</div>
+        StudyStreak
+      </div>
+      <div class="streak-badge">
+        <span class="fire">🔥</span>
+        <span id="streakCount">7</span> day streak
+      </div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card animate delay-1">
+        <div class="value" style="color:var(--accent)">248</div>
+        <div class="label">Questions</div>
+      </div>
+      <div class="stat-card animate delay-2">
+        <div class="value" style="color:var(--green)">86%</div>
+        <div class="label">Accuracy</div>
+      </div>
+      <div class="stat-card animate delay-3">
+        <div class="value" style="color:var(--orange)">12</div>
+        <div class="label">Quizzes</div>
+      </div>
+    </div>
+
+    <div class="section-title animate delay-2">📖 Study Topics</div>
+    <div class="topics-grid" id="topicsList"></div>
+  </div>
+
+  <!-- ===== QUIZ SCREEN ===== -->
+  <div id="quizScreen" class="screen">
+    <button class="back-btn" onclick="goHome()">← Back</button>
+    <div class="quiz-header">
+      <div class="quiz-topic-label" id="quizTopicLabel"></div>
+      <div class="question-card">
+        <div class="question-number" id="questionNumber"></div>
+        <div class="question-text" id="questionText"></div>
+      </div>
+      <div class="quiz-progress" id="quizProgress"></div>
+    </div>
+    <div class="options" id="optionsContainer"></div>
+    <div class="explanation" id="explanation"></div>
+    <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Next Question →</button>
+  </div>
+
+  <!-- ===== RESULTS SCREEN ===== -->
+  <div id="resultsScreen" class="screen">
+    <button class="back-btn" onclick="goHome()">← Home</button>
+    <div class="results-card animate">
+      <div class="results-emoji" id="resultsEmoji"></div>
+      <div class="results-title" id="resultsTitle"></div>
+      <div class="results-sub" id="resultsSub"></div>
+      <div class="results-score" id="resultsScore"></div>
+      <div class="results-label">correct answers</div>
+      <div class="results-stats">
+        <div class="results-stat">
+          <div class="val" id="resCorrect" style="color:var(--green)">0</div>
+          <div class="lbl">Correct</div>
+        </div>
+        <div class="results-stat">
+          <div class="val" id="resWrong" style="color:var(--red)">0</div>
+          <div class="lbl">Wrong</div>
+        </div>
+        <div class="results-stat">
+          <div class="val" id="resTime" style="color:var(--orange)">0s</div>
+          <div class="lbl">Time</div>
+        </div>
+      </div>
+    </div>
+    <button class="action-btn action-primary" onclick="retryQuiz()">Try Again</button>
+    <button class="action-btn action-secondary" onclick="goHome()">Back to Topics</button>
+  </div>
+</div>
+
+<script>
+// ── FAKE DATA ──
+const topics = [
+  {
+    id: 'algebra',
+    name: 'Algebra',
+    icon: '📐',
+    color: '#7c5cfc',
+    questions: 15,
+    difficulty: 'Medium',
+    progress: 72,
+    quiz: [
+      { q: 'Solve for x: 2x + 6 = 14', opts: ['x = 3', 'x = 4', 'x = 5', 'x = 8'], answer: 1, explain: 'Subtract 6 from both sides: 2x = 8, then divide by 2: x = 4.' },
+      { q: 'What is the value of 3² + 4²?', opts: ['12', '24', '25', '7'], answer: 2, explain: '3² = 9 and 4² = 16. 9 + 16 = 25.' },
+      { q: 'Simplify: 2(3x + 4) - x', opts: ['5x + 8', '6x + 4', '5x + 4', '6x + 8'], answer: 0, explain: 'Distribute: 6x + 8 - x = 5x + 8.' },
+      { q: 'If f(x) = 2x - 3, what is f(5)?', opts: ['7', '10', '13', '5'], answer: 0, explain: 'f(5) = 2(5) - 3 = 10 - 3 = 7.' },
+      { q: 'What is the slope of y = -3x + 7?', opts: ['3', '-3', '7', '-7'], answer: 1, explain: 'In y = mx + b form, m (slope) = -3.' },
+      { q: 'Factor: x² - 9', opts: ['(x-3)(x+3)', '(x-9)(x+1)', '(x-3)²', '(x+3)²'], answer: 0, explain: 'This is a difference of squares: a² - b² = (a-b)(a+b).' },
+      { q: 'Solve: |x - 4| = 7', opts: ['x = 11 only', 'x = -3 only', 'x = 11 or x = -3', 'x = 3 or x = -11'], answer: 2, explain: 'Either x - 4 = 7 → x = 11, or x - 4 = -7 → x = -3.' },
+      { q: 'What is log₂(32)?', opts: ['4', '5', '6', '16'], answer: 1, explain: '2⁵ = 32, so log₂(32) = 5.' },
+      { q: 'Simplify: (x³)²', opts: ['x⁵', 'x⁶', 'x⁹', 'x⁸'], answer: 1, explain: 'Power of a power: multiply exponents. 3 × 2 = 6, so x⁶.' },
+      { q: 'What are the roots of x² - 5x + 6 = 0?', opts: ['x = 1, 6', 'x = 2, 3', 'x = -2, -3', 'x = 1, 5'], answer: 1, explain: 'Factor: (x-2)(x-3) = 0, so x = 2 or x = 3.' },
+    ]
+  },
+  {
+    id: 'biology',
+    name: 'Biology',
+    icon: '🧬',
+    color: '#34d399',
+    questions: 20,
+    difficulty: 'Hard',
+    progress: 45,
+    quiz: [
+      { q: 'What is the powerhouse of the cell?', opts: ['Nucleus', 'Ribosome', 'Mitochondria', 'Golgi apparatus'], answer: 2, explain: 'Mitochondria generate most of the cell\'s ATP through cellular respiration.' },
+      { q: 'DNA stands for:', opts: ['Deoxyribonucleic Acid', 'Dinitrogen Acid', 'Deoxyribose Nucleic Agent', 'Dynamic Nuclear Acid'], answer: 0, explain: 'DNA = Deoxyribonucleic Acid, the molecule carrying genetic instructions.' },
+      { q: 'What is the basic unit of life?', opts: ['Atom', 'Molecule', 'Cell', 'Organ'], answer: 2, explain: 'The cell is the smallest structural and functional unit of life.' },
+      { q: 'Which organelle is responsible for photosynthesis?', opts: ['Mitochondria', 'Chloroplast', 'Vacuole', 'Lysosome'], answer: 1, explain: 'Chloroplasts contain chlorophyll and convert sunlight into chemical energy.' },
+      { q: 'What type of bond holds DNA strands together?', opts: ['Ionic bonds', 'Hydrogen bonds', 'Covalent bonds', 'Metallic bonds'], answer: 1, explain: 'Hydrogen bonds between complementary base pairs (A-T, G-C) hold the strands.' },
+      { q: 'What is the process of cell division called in body cells?', opts: ['Meiosis', 'Mitosis', 'Binary fission', 'Cytokinesis'], answer: 1, explain: 'Mitosis produces two identical daughter cells for growth and repair.' },
+      { q: 'Which molecule carries oxygen in blood?', opts: ['White blood cells', 'Plasma', 'Hemoglobin', 'Platelets'], answer: 2, explain: 'Hemoglobin in red blood cells binds and transports oxygen.' },
+      { q: 'What is the outermost layer of an animal cell called?', opts: ['Cell wall', 'Cell membrane', 'Nuclear membrane', 'Cytoplasm'], answer: 1, explain: 'Animal cells have a cell membrane (not a cell wall) as their outer boundary.' },
+      { q: 'RNA contains which sugar?', opts: ['Glucose', 'Deoxyribose', 'Ribose', 'Fructose'], answer: 2, explain: 'RNA contains ribose sugar, while DNA contains deoxyribose.' },
+      { q: 'What kingdom do mushrooms belong to?', opts: ['Plantae', 'Animalia', 'Fungi', 'Protista'], answer: 2, explain: 'Mushrooms are fungi — they absorb nutrients rather than photosynthesize.' },
+    ]
+  },
+  {
+    id: 'spanish',
+    name: 'Spanish',
+    icon: '🇪🇸',
+    color: '#fb923c',
+    questions: 25,
+    difficulty: 'Easy',
+    progress: 88,
+    quiz: [
+      { q: 'How do you say "hello" in Spanish?', opts: ['Adiós', 'Hola', 'Gracias', 'Por favor'], answer: 1, explain: '"Hola" is the most common informal greeting in Spanish.' },
+      { q: 'What does "gracias" mean?', opts: ['Please', 'Sorry', 'Thank you', 'Goodbye'], answer: 2, explain: '"Gracias" means "thank you" in English.' },
+      { q: 'Select the correct translation for "the book":', opts: ['El libro', 'La libro', 'Los libro', 'El libros'], answer: 0, explain: '"Libro" is masculine, so it uses the article "el".' },
+      { q: 'What is the past tense of "hablar" (to speak)?', opts: ['Hablo', 'Hablaré', 'Habló', 'Hablando'], answer: 2, explain: '"Habló" is the preterite (past) tense, third person singular.' },
+      { q: '"Yo tengo hambre" means:', opts: ['I am tired', 'I am hungry', 'I am thirsty', 'I am happy'], answer: 1, explain: '"Tengo hambre" literally means "I have hunger" = I am hungry.' },
+      { q: 'What does "perro" mean?', opts: ['Cat', 'Bird', 'Dog', 'Fish'], answer: 2, explain: '"Perro" means dog. "Perra" is the feminine form.' },
+      { q: 'Conjugate "ser" for "yo":', opts: ['Eres', 'Soy', 'Es', 'Somos'], answer: 1, explain: '"Yo soy" — "ser" is irregular, and "soy" is the first person form.' },
+      { q: 'How do you say "good night"?', opts: ['Buenos días', 'Buenas tardes', 'Buenas noches', 'Bueno noche'], answer: 2, explain: '"Buenas noches" is used for "good night" in Spanish.' },
+      { q: '"¿Dónde está el baño?" asks for:', opts: ['The kitchen', 'The bathroom', 'The bedroom', 'The exit'], answer: 1, explain: 'This translates to "Where is the bathroom?"' },
+      { q: 'What is the plural of "ciudad"?', opts: ['Ciudads', 'Ciudades', 'Ciudadós', 'Ciudade'], answer: 1, explain: 'Words ending in a consonant add "-es" to form the plural.' },
+    ]
+  },
+  {
+    id: 'history',
+    name: 'World History',
+    icon: '🏛️',
+    color: '#facc15',
+    questions: 18,
+    difficulty: 'Medium',
+    progress: 60,
+    quiz: [
+      { q: 'In what year did World War II end?', opts: ['1943', '1944', '1945', '1946'], answer: 2, explain: 'WWII ended in 1945 with the surrender of Japan in September.' },
+      { q: 'Who was the first President of the United States?', opts: ['Thomas Jefferson', 'John Adams', 'George Washington', 'Benjamin Franklin'], answer: 2, explain: 'George Washington served as the first U.S. President from 1789–1797.' },
+      { q: 'The Renaissance began in which country?', opts: ['France', 'England', 'Italy', 'Spain'], answer: 2, explain: 'The Renaissance originated in Italy around the 14th century.' },
+      { q: 'What ancient wonder was located in Giza, Egypt?', opts: ['Hanging Gardens', 'Colossus of Rhodes', 'Great Pyramid', 'Lighthouse of Alexandria'], answer: 2, explain: 'The Great Pyramid of Giza is the oldest and only surviving ancient wonder.' },
+      { q: 'Who wrote the "I Have a Dream" speech?', opts: ['Malcolm X', 'Martin Luther King Jr.', 'John F. Kennedy', 'Rosa Parks'], answer: 1, explain: 'MLK delivered this iconic speech in 1963 during the March on Washington.' },
+      { q: 'The French Revolution began in which year?', opts: ['1776', '1789', '1799', '1804'], answer: 1, explain: 'The French Revolution began in 1789 with the storming of the Bastille.' },
+      { q: 'Which empire built Machu Picchu?', opts: ['Aztec', 'Maya', 'Inca', 'Olmec'], answer: 2, explain: 'The Inca Empire built Machu Picchu in the 15th century in Peru.' },
+      { q: 'What wall fell in 1989?', opts: ['Great Wall of China', 'Hadrian\'s Wall', 'Berlin Wall', 'Wailing Wall'], answer: 2, explain: 'The Berlin Wall fell on November 9, 1989, symbolizing the end of the Cold War.' },
+      { q: 'Who discovered penicillin?', opts: ['Louis Pasteur', 'Alexander Fleming', 'Joseph Lister', 'Robert Koch'], answer: 1, explain: 'Alexander Fleming discovered penicillin in 1928.' },
+      { q: 'The Industrial Revolution started in which country?', opts: ['Germany', 'France', 'United States', 'Great Britain'], answer: 3, explain: 'The Industrial Revolution began in Great Britain in the late 18th century.' },
+    ]
+  },
+  {
+    id: 'physics',
+    name: 'Physics',
+    icon: '⚛️',
+    color: '#f87171',
+    questions: 12,
+    difficulty: 'Hard',
+    progress: 33,
+    quiz: [
+      { q: 'What is the speed of light in a vacuum?', opts: ['300,000 km/s', '150,000 km/s', '300,000 m/s', '1,000,000 km/s'], answer: 0, explain: 'The speed of light is approximately 300,000 km/s (299,792,458 m/s).' },
+      { q: 'What does E = mc² describe?', opts: ['Kinetic energy', 'Mass-energy equivalence', 'Gravitational force', 'Ohm\'s law'], answer: 1, explain: 'Einstein\'s equation shows that mass and energy are equivalent.' },
+      { q: 'What is the SI unit of force?', opts: ['Joule', 'Watt', 'Newton', 'Pascal'], answer: 2, explain: 'The Newton (N) is the SI unit of force, equal to kg·m/s².' },
+      { q: 'What is Newton\'s First Law about?', opts: ['Acceleration', 'Inertia', 'Action-reaction', 'Gravity'], answer: 1, explain: 'Newton\'s First Law states that objects at rest stay at rest (inertia).' },
+      { q: 'What particle has a negative charge?', opts: ['Proton', 'Neutron', 'Electron', 'Photon'], answer: 2, explain: 'Electrons carry a negative charge; protons are positive.' },
+      { q: 'What is the acceleration due to gravity on Earth?', opts: ['8.9 m/s²', '9.8 m/s²', '10.8 m/s²', '6.7 m/s²'], answer: 1, explain: 'Standard gravity is approximately 9.8 m/s².' },
+      { q: 'Which law states energy cannot be created or destroyed?', opts: ['First Law of Thermodynamics', 'Second Law of Thermodynamics', 'Conservation of Momentum', 'Heisenberg Uncertainty'], answer: 0, explain: 'The First Law of Thermodynamics is the conservation of energy.' },
+      { q: 'What type of wave is sound?', opts: ['Transverse', 'Longitudinal', 'Electromagnetic', 'Surface'], answer: 1, explain: 'Sound waves are longitudinal — compressions and rarefactions.' },
+      { q: 'What is the formula for kinetic energy?', opts: ['mgh', '½mv²', 'Fd', 'PV'], answer: 1, explain: 'Kinetic energy = ½ × mass × velocity².' },
+      { q: 'Who developed the theory of general relativity?', opts: ['Newton', 'Einstein', 'Hawking', 'Bohr'], answer: 1, explain: 'Albert Einstein published general relativity in 1915.' },
+    ]
+  },
+  {
+    id: 'chemistry',
+    name: 'Chemistry',
+    icon: '🧪',
+    color: '#a78bfa',
+    questions: 16,
+    difficulty: 'Medium',
+    progress: 55,
+    quiz: [
+      { q: 'What is the chemical symbol for water?', opts: ['HO', 'H₂O', 'OH₂', 'H₃O'], answer: 1, explain: 'Water is H₂O — two hydrogen atoms and one oxygen atom.' },
+      { q: 'What is the atomic number of Carbon?', opts: ['4', '6', '8', '12'], answer: 1, explain: 'Carbon has 6 protons, so its atomic number is 6.' },
+      { q: 'What is the pH of a neutral substance?', opts: ['0', '7', '14', '1'], answer: 1, explain: 'A pH of 7 is neutral. Below 7 is acidic, above 7 is basic.' },
+      { q: 'Which element is a noble gas?', opts: ['Nitrogen', 'Oxygen', 'Neon', 'Hydrogen'], answer: 2, explain: 'Neon (Ne) is in Group 18, the noble gases.' },
+      { q: 'What is NaCl commonly known as?', opts: ['Sugar', 'Baking soda', 'Table salt', 'Vinegar'], answer: 2, explain: 'NaCl is sodium chloride, commonly known as table salt.' },
+      { q: 'How many bonds can a carbon atom form?', opts: ['2', '3', '4', '6'], answer: 2, explain: 'Carbon has 4 valence electrons and can form 4 covalent bonds.' },
+      { q: 'What gas do plants absorb from the atmosphere?', opts: ['Oxygen', 'Nitrogen', 'Carbon dioxide', 'Hydrogen'], answer: 2, explain: 'Plants absorb CO₂ during photosynthesis to produce glucose and oxygen.' },
+      { q: 'What is an isotope?', opts: ['Same element, different protons', 'Same element, different neutrons', 'Different element, same mass', 'An ion'], answer: 1, explain: 'Isotopes are atoms of the same element with different numbers of neutrons.' },
+      { q: 'Which state of matter has a fixed shape?', opts: ['Gas', 'Liquid', 'Solid', 'Plasma'], answer: 2, explain: 'Solids have a definite shape and volume due to tightly packed particles.' },
+      { q: 'What type of reaction releases energy?', opts: ['Endothermic', 'Exothermic', 'Synthesis', 'Decomposition'], answer: 1, explain: 'Exothermic reactions release energy as heat to the surroundings.' },
+    ]
+  }
+];
+
+// ── STATE ──
+let currentTopic = null;
+let currentQ = 0;
+let score = 0;
+let answered = false;
+let startTime = 0;
+let quizResults = [];
+
+// ── RENDER TOPICS ──
+function renderTopics() {
+  const list = document.getElementById('topicsList');
+  list.innerHTML = topics.map((t, i) => `
+    <div class="topic-card animate delay-${i % 4 + 1}" onclick="startQuiz('${t.id}')">
+      <div class="topic-icon" style="background:${t.color}22">${t.icon}</div>
+      <div class="topic-info">
+        <div class="topic-name">${t.name}</div>
+        <div class="topic-meta">${t.questions} questions · ${t.difficulty}</div>
+        <div class="topic-progress-wrap">
+          <div class="topic-progress-bar" style="width:${t.progress}%; background:linear-gradient(90deg, ${t.color}, ${t.color}88)"></div>
+        </div>
+      </div>
+      <div class="topic-arrow">›</div>
+    </div>
+  `).join('');
+}
+
+// ── SCREEN MANAGEMENT ──
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function goHome() {
+  showScreen('homeScreen');
+}
+
+// ── QUIZ LOGIC ──
+function startQuiz(topicId) {
+  currentTopic = topics.find(t => t.id === topicId);
+  currentQ = 0;
+  score = 0;
+  answered = false;
+  startTime = Date.now();
+  quizResults = new Array(currentTopic.quiz.length).fill(null);
+
+  document.getElementById('quizTopicLabel').textContent = currentTopic.icon + ' ' + currentTopic.name;
+  showScreen('quizScreen');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const quiz = currentTopic.quiz;
+  const q = quiz[currentQ];
+  answered = false;
+
+  document.getElementById('questionNumber').textContent = `Question ${currentQ + 1} of ${quiz.length}`;
+  document.getElementById('questionText').textContent = q.q;
+
+  // progress dots
+  const prog = document.getElementById('quizProgress');
+  prog.innerHTML = quiz.map((_, i) => {
+    let cls = 'quiz-dot';
+    if (i < currentQ) cls += quizResults[i] ? ' done' : ' wrong';
+    else if (i === currentQ) cls += ' current';
+    return `<div class="${cls}"></div>`;
+  }).join('');
+
+  // options
+  const letters = ['A', 'B', 'C', 'D'];
+  document.getElementById('optionsContainer').innerHTML = q.opts.map((opt, i) => `
+    <button class="option-btn" onclick="selectAnswer(${i})">
+      <span class="letter">${letters[i]}</span>
+      ${opt}
+    </button>
+  `).join('');
+
+  document.getElementById('explanation').classList.remove('show');
+  document.getElementById('nextBtn').classList.remove('show');
+}
+
+function selectAnswer(idx) {
+  if (answered) return;
+  answered = true;
+
+  const q = currentTopic.quiz[currentQ];
+  const correct = idx === q.answer;
+  if (correct) score++;
+  quizResults[currentQ] = correct;
+
+  const btns = document.querySelectorAll('.option-btn');
+  btns.forEach((btn, i) => {
+    if (i === q.answer) btn.classList.add('correct');
+    else if (i === idx && !correct) btn.classList.add('wrong');
+    else btn.classList.add('disabled');
+  });
+
+  const exp = document.getElementById('explanation');
+  exp.innerHTML = `<strong>${correct ? '✓ Correct!' : '✗ Incorrect'}</strong> ${q.explain}`;
+  exp.classList.add('show');
+  document.getElementById('nextBtn').classList.add('show');
+  document.getElementById('nextBtn').textContent =
+    currentQ < currentTopic.quiz.length - 1 ? 'Next Question →' : 'See Results →';
+}
+
+function nextQuestion() {
+  currentQ++;
+  if (currentQ >= currentTopic.quiz.length) {
+    showResults();
+  } else {
+    renderQuestion();
+  }
+}
+
+function showResults() {
+  const total = currentTopic.quiz.length;
+  const pct = Math.round((score / total) * 100);
+  const elapsed = Math.round((Date.now() - startTime) / 1000);
+
+  let emoji, title, sub;
+  if (pct >= 90) { emoji = '🏆'; title = 'Outstanding!'; sub = 'You really know your stuff!'; }
+  else if (pct >= 70) { emoji = '🎉'; title = 'Great Job!'; sub = 'Solid performance — keep it up!'; }
+  else if (pct >= 50) { emoji = '💪'; title = 'Not Bad!'; sub = 'Room for improvement, but you\'re getting there.'; }
+  else { emoji = '📖'; title = 'Keep Studying!'; sub = 'Review the material and try again.'; }
+
+  document.getElementById('resultsEmoji').textContent = emoji;
+  document.getElementById('resultsTitle').textContent = title;
+  document.getElementById('resultsSub').textContent = sub;
+  document.getElementById('resultsScore').textContent = pct + '%';
+  document.getElementById('resCorrect').textContent = score;
+  document.getElementById('resWrong').textContent = total - score;
+  document.getElementById('resTime').textContent = elapsed + 's';
+
+  showScreen('resultsScreen');
+}
+
+function retryQuiz() {
+  if (currentTopic) startQuiz(currentTopic.id);
+}
+
+// ── INIT ──
+renderTopics();
+</script>
+</body>
+</html>
