@@ -137,6 +137,7 @@
     border-color: var(--accent);
     transform: translateY(-1px);
   }
+  .topic-card:hover .topic-actions { opacity: 1; pointer-events: all; }
   .topic-icon {
     width: 50px; height: 50px;
     border-radius: 14px;
@@ -166,6 +167,54 @@
     color: var(--text-dim);
     font-size: 20px;
     flex-shrink: 0;
+  }
+  .topic-actions {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    gap: 4px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+  }
+  .topic-action-btn {
+    width: 30px; height: 30px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text-dim);
+    font-size: 14px;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: all 0.15s;
+  }
+  .topic-action-btn:hover { border-color: var(--accent); color: var(--text); }
+  .topic-action-btn.delete:hover { border-color: var(--red); color: var(--red); }
+
+  /* ── ADD TOPIC BUTTON ── */
+  .add-topic-btn {
+    width: 100%;
+    padding: 16px;
+    border-radius: var(--radius);
+    border: 2px dashed var(--border);
+    background: transparent;
+    color: var(--text-dim);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .add-topic-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(124,92,252,0.05);
   }
 
   /* ── QUIZ SCREEN ── */
@@ -378,6 +427,198 @@
     color: var(--text);
   }
 
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    backdrop-filter: blur(4px);
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px 24px;
+    width: 100%;
+    max-width: 480px;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  .modal-title {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .modal-close {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-dim);
+    font-size: 18px;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+  }
+  .modal-close:hover { border-color: var(--red); color: var(--red); }
+
+  /* ── FORM ELEMENTS ── */
+  .form-group {
+    margin-bottom: 16px;
+  }
+  .form-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .form-input, .form-select, .form-textarea {
+    width: 100%;
+    padding: 12px 16px;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 500;
+    transition: border-color 0.2s;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  .form-textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .color-options {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .color-swatch {
+    width: 32px; height: 32px;
+    border-radius: 10px;
+    border: 3px solid transparent;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .color-swatch:hover { transform: scale(1.15); }
+  .color-swatch.selected { border-color: var(--text); }
+
+  .icon-options {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .icon-pick {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    border: 2px solid var(--border);
+    background: var(--bg);
+    font-size: 20px;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: all 0.15s;
+  }
+  .icon-pick:hover { border-color: var(--accent); }
+  .icon-pick.selected { border-color: var(--accent); background: rgba(124,92,252,0.1); }
+
+  .btn-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .btn-row .action-btn { margin-bottom: 0; flex: 1; }
+
+  .btn-danger {
+    background: var(--red);
+    color: #fff;
+    border: none;
+  }
+
+  /* ── QUESTION MANAGER ── */
+  .question-list {
+    display: grid;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .question-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 14px;
+    transition: border-color 0.2s;
+  }
+  .question-item:hover { border-color: var(--accent); }
+  .question-item-num {
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+  .question-item-text {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .question-item-actions {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+  .qi-btn {
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-dim);
+    font-size: 12px;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+  }
+  .qi-btn:hover { border-color: var(--accent); color: var(--text); }
+  .qi-btn.delete:hover { border-color: var(--red); color: var(--red); }
+
+  .empty-state {
+    text-align: center;
+    padding: 32px 16px;
+    color: var(--text-dim);
+    font-size: 14px;
+  }
+
   /* ── ANIMATIONS ── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(16px); }
@@ -395,6 +636,7 @@
     .stat-card { padding: 12px 8px; }
     .stat-card .value { font-size: 20px; }
     .question-text { font-size: 17px; }
+    .form-row { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -416,21 +658,22 @@
 
     <div class="stats-row">
       <div class="stat-card animate delay-1">
-        <div class="value" style="color:var(--accent)">273</div>
+        <div class="value" style="color:var(--accent)" id="statQuestions">0</div>
         <div class="label">Questions</div>
       </div>
       <div class="stat-card animate delay-2">
-        <div class="value" style="color:var(--green)">86%</div>
+        <div class="value" style="color:var(--green)" id="statAccuracy">86%</div>
         <div class="label">Accuracy</div>
       </div>
       <div class="stat-card animate delay-3">
-        <div class="value" style="color:var(--orange)">13</div>
-        <div class="label">Quizzes</div>
+        <div class="value" style="color:var(--orange)" id="statTopics">0</div>
+        <div class="label">Topics</div>
       </div>
     </div>
 
     <div class="section-title animate delay-2">📖 Study Topics</div>
     <div class="topics-grid" id="topicsList"></div>
+    <button class="add-topic-btn" onclick="openTopicModal()">+ Add Topic</button>
   </div>
 
   <!-- ===== QUIZ SCREEN ===== -->
@@ -478,169 +721,275 @@
   </div>
 </div>
 
+<!-- ===== TOPIC MODAL ===== -->
+<div class="modal-overlay" id="topicModal">
+  <div class="modal">
+    <div class="modal-title">
+      <span id="topicModalTitle">Add Topic</span>
+      <button class="modal-close" onclick="closeTopicModal()">✕</button>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Topic Name</label>
+      <input class="form-input" id="tmName" placeholder="e.g. Chemistry" />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Icon</label>
+      <div class="icon-options" id="tmIcons"></div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Color</label>
+      <div class="color-options" id="tmColors"></div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Difficulty</label>
+        <select class="form-select" id="tmDifficulty">
+          <option value="Easy">Easy</option>
+          <option value="Medium" selected>Medium</option>
+          <option value="Hard">Hard</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Progress %</label>
+        <input class="form-input" id="tmProgress" type="number" min="0" max="100" value="0" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Number of Questions</label>
+      <input class="form-input" id="tmQuestionCount" type="number" min="1" max="100" value="10" />
+    </div>
+
+    <div class="btn-row">
+      <button class="action-btn action-secondary" onclick="closeTopicModal()">Cancel</button>
+      <button class="action-btn action-primary" id="tmSaveBtn" onclick="saveTopic()">Create</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== QUESTION MANAGER MODAL ===== -->
+<div class="modal-overlay" id="questionModal">
+  <div class="modal">
+    <div class="modal-title">
+      <span id="questionModalTitle">Manage Questions</span>
+      <button class="modal-close" onclick="closeQuestionModal()">✕</button>
+    </div>
+
+    <div id="questionManagerContent"></div>
+
+    <div class="btn-row" style="margin-top:12px">
+      <button class="action-btn action-secondary" onclick="closeQuestionModal()">Done</button>
+      <button class="action-btn action-primary" onclick="addQuestion()">+ Add Question</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SINGLE QUESTION EDITOR MODAL ===== -->
+<div class="modal-overlay" id="singleQuestionModal">
+  <div class="modal">
+    <div class="modal-title">
+      <span id="sqModalTitle">Edit Question</span>
+      <button class="modal-close" onclick="closeSingleQuestionModal()">✕</button>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Question</label>
+      <textarea class="form-textarea" id="sqQuestion" rows="2"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Option A</label>
+      <input class="form-input" id="sqOptA" />
+    </div>
+    <div class="form-group">
+      <label class="form-label">Option B</label>
+      <input class="form-input" id="sqOptB" />
+    </div>
+    <div class="form-group">
+      <label class="form-label">Option C</label>
+      <input class="form-input" id="sqOptC" />
+    </div>
+    <div class="form-group">
+      <label class="form-label">Option D</label>
+      <input class="form-input" id="sqOptD" />
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Correct Answer</label>
+        <select class="form-select" id="sqAnswer">
+          <option value="0">A</option>
+          <option value="1">B</option>
+          <option value="2" selected>C</option>
+          <option value="3">D</option>
+        </select>
+      </div>
+      <div class="form-group"></div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Explanation</label>
+      <textarea class="form-textarea" id="sqExplain" rows="2"></textarea>
+    </div>
+
+    <div class="btn-row">
+      <button class="action-btn action-secondary" onclick="closeSingleQuestionModal()">Cancel</button>
+      <button class="action-btn action-primary" id="sqSaveBtn" onclick="saveSingleQuestion()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CONFIRM DELETE MODAL ===== -->
+<div class="modal-overlay" id="confirmModal">
+  <div class="modal" style="max-width:360px">
+    <div class="modal-title">
+      <span id="confirmTitle">Delete?</span>
+      <button class="modal-close" onclick="closeConfirmModal()">✕</button>
+    </div>
+    <p id="confirmMessage" style="color:var(--text-dim);font-size:14px;line-height:1.6;margin-bottom:20px"></p>
+    <div class="btn-row">
+      <button class="action-btn action-secondary" onclick="closeConfirmModal()">Cancel</button>
+      <button class="action-btn btn-danger" id="confirmAction">Delete</button>
+    </div>
+  </div>
+</div>
+
 <script>
+// ── ICON & COLOR PALETTES ──
+const iconPalette = ['📐','🧬','🇪🇸','🏛️','⚛️','🧪','📈','🌍','🎨','📝','🧠','💡','🎵','📊','💻','🔬','📚','🌱','🏆','⚽'];
+const colorPalette = ['#7c5cfc','#34d399','#fb923c','#facc15','#f87171','#a78bfa','#38bdf8','#f472b6','#fbbf24','#60a5fa','#4ade80','#e879f9'];
+
 // ── FAKE DATA ──
-const topics = [
+let topics = [
   {
-    id: 'algebra',
-    name: 'Algebra',
-    icon: '📐',
-    color: '#7c5cfc',
-    questions: 15,
-    difficulty: 'Medium',
-    progress: 72,
+    id: 'algebra', name: 'Algebra', icon: '📐', color: '#7c5cfc',
+    questions: 15, difficulty: 'Medium', progress: 72,
     quiz: [
-      { q: 'Solve for x: 2x + 6 = 14', opts: ['x = 3', 'x = 4', 'x = 5', 'x = 8'], answer: 1, explain: 'Subtract 6 from both sides: 2x = 8, then divide by 2: x = 4.' },
-      { q: 'What is the value of 3² + 4²?', opts: ['12', '24', '25', '7'], answer: 2, explain: '3² = 9 and 4² = 16. 9 + 16 = 25.' },
-      { q: 'Simplify: 2(3x + 4) - x', opts: ['5x + 8', '6x + 4', '5x + 4', '6x + 8'], answer: 0, explain: 'Distribute: 6x + 8 - x = 5x + 8.' },
-      { q: 'If f(x) = 2x - 3, what is f(5)?', opts: ['7', '10', '13', '5'], answer: 0, explain: 'f(5) = 2(5) - 3 = 10 - 3 = 7.' },
-      { q: 'What is the slope of y = -3x + 7?', opts: ['3', '-3', '7', '-7'], answer: 1, explain: 'In y = mx + b form, m (slope) = -3.' },
-      { q: 'Factor: x² - 9', opts: ['(x-3)(x+3)', '(x-9)(x+1)', '(x-3)²', '(x+3)²'], answer: 0, explain: 'This is a difference of squares: a² - b² = (a-b)(a+b).' },
-      { q: 'Solve: |x - 4| = 7', opts: ['x = 11 only', 'x = -3 only', 'x = 11 or x = -3', 'x = 3 or x = -11'], answer: 2, explain: 'Either x - 4 = 7 → x = 11, or x - 4 = -7 → x = -3.' },
-      { q: 'What is log₂(32)?', opts: ['4', '5', '6', '16'], answer: 1, explain: '2⁵ = 32, so log₂(32) = 5.' },
-      { q: 'Simplify: (x³)²', opts: ['x⁵', 'x⁶', 'x⁹', 'x⁸'], answer: 1, explain: 'Power of a power: multiply exponents. 3 × 2 = 6, so x⁶.' },
-      { q: 'What are the roots of x² - 5x + 6 = 0?', opts: ['x = 1, 6', 'x = 2, 3', 'x = -2, -3', 'x = 1, 5'], answer: 1, explain: 'Factor: (x-2)(x-3) = 0, so x = 2 or x = 3.' },
+      { q: 'Solve for x: 2x + 6 = 14', opts: ['x = 3', 'x = 4', 'x = 5', 'x = 8'], answer: 1, explain: 'Subtract 6: 2x = 8, then divide by 2: x = 4.' },
+      { q: 'What is 3² + 4²?', opts: ['12', '24', '25', '7'], answer: 2, explain: '9 + 16 = 25.' },
+      { q: 'Simplify: 2(3x + 4) - x', opts: ['5x + 8', '6x + 4', '5x + 4', '6x + 8'], answer: 0, explain: '6x + 8 - x = 5x + 8.' },
+      { q: 'If f(x) = 2x - 3, what is f(5)?', opts: ['7', '10', '13', '5'], answer: 0, explain: '2(5) - 3 = 7.' },
+      { q: 'What is the slope of y = -3x + 7?', opts: ['3', '-3', '7', '-7'], answer: 1, explain: 'Slope m = -3.' },
+      { q: 'Factor: x² - 9', opts: ['(x-3)(x+3)', '(x-9)(x+1)', '(x-3)²', '(x+3)²'], answer: 0, explain: 'Difference of squares.' },
+      { q: 'Solve: |x - 4| = 7', opts: ['x = 11 only', 'x = -3 only', 'x = 11 or x = -3', 'x = 3 or x = -11'], answer: 2, explain: 'x - 4 = 7 → 11, or x - 4 = -7 → -3.' },
+      { q: 'What is log₂(32)?', opts: ['4', '5', '6', '16'], answer: 1, explain: '2⁵ = 32.' },
+      { q: 'Simplify: (x³)²', opts: ['x⁵', 'x⁶', 'x⁹', 'x⁸'], answer: 1, explain: 'Multiply exponents: 3×2 = 6.' },
+      { q: 'Roots of x² - 5x + 6 = 0?', opts: ['x = 1, 6', 'x = 2, 3', 'x = -2, -3', 'x = 1, 5'], answer: 1, explain: '(x-2)(x-3) = 0.' },
     ]
   },
   {
-    id: 'biology',
-    name: 'Biology',
-    icon: '🧬',
-    color: '#34d399',
-    questions: 20,
-    difficulty: 'Hard',
-    progress: 45,
+    id: 'biology', name: 'Biology', icon: '🧬', color: '#34d399',
+    questions: 20, difficulty: 'Hard', progress: 45,
     quiz: [
-      { q: 'What is the powerhouse of the cell?', opts: ['Nucleus', 'Ribosome', 'Mitochondria', 'Golgi apparatus'], answer: 2, explain: 'Mitochondria generate most of the cell\'s ATP through cellular respiration.' },
-      { q: 'DNA stands for:', opts: ['Deoxyribonucleic Acid', 'Dinitrogen Acid', 'Deoxyribose Nucleic Agent', 'Dynamic Nuclear Acid'], answer: 0, explain: 'DNA = Deoxyribonucleic Acid, the molecule carrying genetic instructions.' },
-      { q: 'What is the basic unit of life?', opts: ['Atom', 'Molecule', 'Cell', 'Organ'], answer: 2, explain: 'The cell is the smallest structural and functional unit of life.' },
-      { q: 'Which organelle is responsible for photosynthesis?', opts: ['Mitochondria', 'Chloroplast', 'Vacuole', 'Lysosome'], answer: 1, explain: 'Chloroplasts contain chlorophyll and convert sunlight into chemical energy.' },
-      { q: 'What type of bond holds DNA strands together?', opts: ['Ionic bonds', 'Hydrogen bonds', 'Covalent bonds', 'Metallic bonds'], answer: 1, explain: 'Hydrogen bonds between complementary base pairs (A-T, G-C) hold the strands.' },
-      { q: 'What is the process of cell division called in body cells?', opts: ['Meiosis', 'Mitosis', 'Binary fission', 'Cytokinesis'], answer: 1, explain: 'Mitosis produces two identical daughter cells for growth and repair.' },
-      { q: 'Which molecule carries oxygen in blood?', opts: ['White blood cells', 'Plasma', 'Hemoglobin', 'Platelets'], answer: 2, explain: 'Hemoglobin in red blood cells binds and transports oxygen.' },
-      { q: 'What is the outermost layer of an animal cell called?', opts: ['Cell wall', 'Cell membrane', 'Nuclear membrane', 'Cytoplasm'], answer: 1, explain: 'Animal cells have a cell membrane (not a cell wall) as their outer boundary.' },
-      { q: 'RNA contains which sugar?', opts: ['Glucose', 'Deoxyribose', 'Ribose', 'Fructose'], answer: 2, explain: 'RNA contains ribose sugar, while DNA contains deoxyribose.' },
-      { q: 'What kingdom do mushrooms belong to?', opts: ['Plantae', 'Animalia', 'Fungi', 'Protista'], answer: 2, explain: 'Mushrooms are fungi — they absorb nutrients rather than photosynthesize.' },
+      { q: 'Powerhouse of the cell?', opts: ['Nucleus', 'Ribosome', 'Mitochondria', 'Golgi apparatus'], answer: 2, explain: 'Mitochondria produce ATP.' },
+      { q: 'DNA stands for:', opts: ['Deoxyribonucleic Acid', 'Dinitrogen Acid', 'Deoxyribose Nucleic Agent', 'Dynamic Nuclear Acid'], answer: 0, explain: 'Deoxyribonucleic Acid.' },
+      { q: 'Basic unit of life?', opts: ['Atom', 'Molecule', 'Cell', 'Organ'], answer: 2, explain: 'The cell.' },
+      { q: 'Photosynthesis organelle?', opts: ['Mitochondria', 'Chloroplast', 'Vacuole', 'Lysosome'], answer: 1, explain: 'Chloroplasts.' },
+      { q: 'Bond holding DNA strands?', opts: ['Ionic', 'Hydrogen', 'Covalent', 'Metallic'], answer: 1, explain: 'Hydrogen bonds between base pairs.' },
+      { q: 'Cell division in body cells?', opts: ['Meiosis', 'Mitosis', 'Binary fission', 'Cytokinesis'], answer: 1, explain: 'Mitosis.' },
+      { q: 'Oxygen carrier in blood?', opts: ['White blood cells', 'Plasma', 'Hemoglobin', 'Platelets'], answer: 2, explain: 'Hemoglobin.' },
+      { q: 'Outermost layer of animal cell?', opts: ['Cell wall', 'Cell membrane', 'Nuclear membrane', 'Cytoplasm'], answer: 1, explain: 'Cell membrane.' },
+      { q: 'Sugar in RNA?', opts: ['Glucose', 'Deoxyribose', 'Ribose', 'Fructose'], answer: 2, explain: 'Ribose.' },
+      { q: 'Kingdom of mushrooms?', opts: ['Plantae', 'Animalia', 'Fungi', 'Protista'], answer: 2, explain: 'Fungi.' },
     ]
   },
   {
-    id: 'spanish',
-    name: 'Spanish',
-    icon: '🇪🇸',
-    color: '#fb923c',
-    questions: 25,
-    difficulty: 'Easy',
-    progress: 88,
+    id: 'spanish', name: 'Spanish', icon: '🇪🇸', color: '#fb923c',
+    questions: 25, difficulty: 'Easy', progress: 88,
     quiz: [
-      { q: 'How do you say "hello" in Spanish?', opts: ['Adiós', 'Hola', 'Gracias', 'Por favor'], answer: 1, explain: '"Hola" is the most common informal greeting in Spanish.' },
-      { q: 'What does "gracias" mean?', opts: ['Please', 'Sorry', 'Thank you', 'Goodbye'], answer: 2, explain: '"Gracias" means "thank you" in English.' },
-      { q: 'Select the correct translation for "the book":', opts: ['El libro', 'La libro', 'Los libro', 'El libros'], answer: 0, explain: '"Libro" is masculine, so it uses the article "el".' },
-      { q: 'What is the past tense of "hablar" (to speak)?', opts: ['Hablo', 'Hablaré', 'Habló', 'Hablando'], answer: 2, explain: '"Habló" is the preterite (past) tense, third person singular.' },
-      { q: '"Yo tengo hambre" means:', opts: ['I am tired', 'I am hungry', 'I am thirsty', 'I am happy'], answer: 1, explain: '"Tengo hambre" literally means "I have hunger" = I am hungry.' },
-      { q: 'What does "perro" mean?', opts: ['Cat', 'Bird', 'Dog', 'Fish'], answer: 2, explain: '"Perro" means dog. "Perra" is the feminine form.' },
-      { q: 'Conjugate "ser" for "yo":', opts: ['Eres', 'Soy', 'Es', 'Somos'], answer: 1, explain: '"Yo soy" — "ser" is irregular, and "soy" is the first person form.' },
-      { q: 'How do you say "good night"?', opts: ['Buenos días', 'Buenas tardes', 'Buenas noches', 'Bueno noche'], answer: 2, explain: '"Buenas noches" is used for "good night" in Spanish.' },
-      { q: '"¿Dónde está el baño?" asks for:', opts: ['The kitchen', 'The bathroom', 'The bedroom', 'The exit'], answer: 1, explain: 'This translates to "Where is the bathroom?"' },
-      { q: 'What is the plural of "ciudad"?', opts: ['Ciudads', 'Ciudades', 'Ciudadós', 'Ciudade'], answer: 1, explain: 'Words ending in a consonant add "-es" to form the plural.' },
+      { q: '"Hello" in Spanish?', opts: ['Adiós', 'Hola', 'Gracias', 'Por favor'], answer: 1, explain: 'Hola.' },
+      { q: '"Gracias" means:', opts: ['Please', 'Sorry', 'Thank you', 'Goodbye'], answer: 2, explain: 'Thank you.' },
+      { q: '"The book":', opts: ['El libro', 'La libro', 'Los libro', 'El libros'], answer: 0, explain: 'Libro is masculine.' },
+      { q: 'Past tense of "hablar":', opts: ['Hablo', 'Hablaré', 'Habló', 'Hablando'], answer: 2, explain: 'Habló.' },
+      { q: '"Yo tengo hambre":', opts: ['I am tired', 'I am hungry', 'I am thirsty', 'I am happy'], answer: 1, explain: 'I am hungry.' },
+      { q: '"Perro" means:', opts: ['Cat', 'Bird', 'Dog', 'Fish'], answer: 2, explain: 'Dog.' },
+      { q: '"Ser" for "yo":', opts: ['Eres', 'Soy', 'Es', 'Somos'], answer: 1, explain: 'Yo soy.' },
+      { q: '"Good night":', opts: ['Buenos días', 'Buenas tardes', 'Buenas noches', 'Bueno noche'], answer: 2, explain: 'Buenas noches.' },
+      { q: '"¿Dónde está el baño?":', opts: ['Kitchen', 'Bathroom', 'Bedroom', 'Exit'], answer: 1, explain: 'Where is the bathroom?' },
+      { q: 'Plural of "ciudad":', opts: ['Ciudads', 'Ciudades', 'Ciudadós', 'Ciudade'], answer: 1, explain: 'Add "-es".' },
     ]
   },
   {
-    id: 'history',
-    name: 'World History',
-    icon: '🏛️',
-    color: '#facc15',
-    questions: 18,
-    difficulty: 'Medium',
-    progress: 60,
+    id: 'history', name: 'World History', icon: '🏛️', color: '#facc15',
+    questions: 18, difficulty: 'Medium', progress: 60,
     quiz: [
-      { q: 'In what year did World War II end?', opts: ['1943', '1944', '1945', '1946'], answer: 2, explain: 'WWII ended in 1945 with the surrender of Japan in September.' },
-      { q: 'Who was the first President of the United States?', opts: ['Thomas Jefferson', 'John Adams', 'George Washington', 'Benjamin Franklin'], answer: 2, explain: 'George Washington served as the first U.S. President from 1789–1797.' },
-      { q: 'The Renaissance began in which country?', opts: ['France', 'England', 'Italy', 'Spain'], answer: 2, explain: 'The Renaissance originated in Italy around the 14th century.' },
-      { q: 'What ancient wonder was located in Giza, Egypt?', opts: ['Hanging Gardens', 'Colossus of Rhodes', 'Great Pyramid', 'Lighthouse of Alexandria'], answer: 2, explain: 'The Great Pyramid of Giza is the oldest and only surviving ancient wonder.' },
-      { q: 'Who wrote the "I Have a Dream" speech?', opts: ['Malcolm X', 'Martin Luther King Jr.', 'John F. Kennedy', 'Rosa Parks'], answer: 1, explain: 'MLK delivered this iconic speech in 1963 during the March on Washington.' },
-      { q: 'The French Revolution began in which year?', opts: ['1776', '1789', '1799', '1804'], answer: 1, explain: 'The French Revolution began in 1789 with the storming of the Bastille.' },
-      { q: 'Which empire built Machu Picchu?', opts: ['Aztec', 'Maya', 'Inca', 'Olmec'], answer: 2, explain: 'The Inca Empire built Machu Picchu in the 15th century in Peru.' },
-      { q: 'What wall fell in 1989?', opts: ['Great Wall of China', 'Hadrian\'s Wall', 'Berlin Wall', 'Wailing Wall'], answer: 2, explain: 'The Berlin Wall fell on November 9, 1989, symbolizing the end of the Cold War.' },
-      { q: 'Who discovered penicillin?', opts: ['Louis Pasteur', 'Alexander Fleming', 'Joseph Lister', 'Robert Koch'], answer: 1, explain: 'Alexander Fleming discovered penicillin in 1928.' },
-      { q: 'The Industrial Revolution started in which country?', opts: ['Germany', 'France', 'United States', 'Great Britain'], answer: 3, explain: 'The Industrial Revolution began in Great Britain in the late 18th century.' },
+      { q: 'WWII ended in:', opts: ['1943', '1944', '1945', '1946'], answer: 2, explain: '1945.' },
+      { q: 'First US President?', opts: ['Jefferson', 'Adams', 'Washington', 'Franklin'], answer: 2, explain: 'George Washington.' },
+      { q: 'Renaissance began in:', opts: ['France', 'England', 'Italy', 'Spain'], answer: 2, explain: 'Italy.' },
+      { q: 'Ancient wonder in Giza?', opts: ['Hanging Gardens', 'Colossus', 'Great Pyramid', 'Lighthouse'], answer: 2, explain: 'Great Pyramid.' },
+      { q: '"I Have a Dream" by:', opts: ['Malcolm X', 'MLK Jr.', 'JFK', 'Rosa Parks'], answer: 1, explain: 'Martin Luther King Jr.' },
+      { q: 'French Revolution began:', opts: ['1776', '1789', '1799', '1804'], answer: 1, explain: '1789.' },
+      { q: 'Empire that built Machu Picchu?', opts: ['Aztec', 'Maya', 'Inca', 'Olmec'], answer: 2, explain: 'Inca.' },
+      { q: 'Wall that fell in 1989?', opts: ['Great Wall', 'Hadrian\'s', 'Berlin Wall', 'Wailing Wall'], answer: 2, explain: 'Berlin Wall.' },
+      { q: 'Penicillin discovered by?', opts: ['Pasteur', 'Fleming', 'Lister', 'Koch'], answer: 1, explain: 'Alexander Fleming.' },
+      { q: 'Industrial Revolution started in:', opts: ['Germany', 'France', 'US', 'Great Britain'], answer: 3, explain: 'Great Britain.' },
     ]
   },
   {
-    id: 'physics',
-    name: 'Physics',
-    icon: '⚛️',
-    color: '#f87171',
-    questions: 12,
-    difficulty: 'Hard',
-    progress: 33,
+    id: 'physics', name: 'Physics', icon: '⚛️', color: '#f87171',
+    questions: 12, difficulty: 'Hard', progress: 33,
     quiz: [
-      { q: 'What is the speed of light in a vacuum?', opts: ['300,000 km/s', '150,000 km/s', '300,000 m/s', '1,000,000 km/s'], answer: 0, explain: 'The speed of light is approximately 300,000 km/s (299,792,458 m/s).' },
-      { q: 'What does E = mc² describe?', opts: ['Kinetic energy', 'Mass-energy equivalence', 'Gravitational force', 'Ohm\'s law'], answer: 1, explain: 'Einstein\'s equation shows that mass and energy are equivalent.' },
-      { q: 'What is the SI unit of force?', opts: ['Joule', 'Watt', 'Newton', 'Pascal'], answer: 2, explain: 'The Newton (N) is the SI unit of force, equal to kg·m/s².' },
-      { q: 'What is Newton\'s First Law about?', opts: ['Acceleration', 'Inertia', 'Action-reaction', 'Gravity'], answer: 1, explain: 'Newton\'s First Law states that objects at rest stay at rest (inertia).' },
-      { q: 'What particle has a negative charge?', opts: ['Proton', 'Neutron', 'Electron', 'Photon'], answer: 2, explain: 'Electrons carry a negative charge; protons are positive.' },
-      { q: 'What is the acceleration due to gravity on Earth?', opts: ['8.9 m/s²', '9.8 m/s²', '10.8 m/s²', '6.7 m/s²'], answer: 1, explain: 'Standard gravity is approximately 9.8 m/s².' },
-      { q: 'Which law states energy cannot be created or destroyed?', opts: ['First Law of Thermodynamics', 'Second Law of Thermodynamics', 'Conservation of Momentum', 'Heisenberg Uncertainty'], answer: 0, explain: 'The First Law of Thermodynamics is the conservation of energy.' },
-      { q: 'What type of wave is sound?', opts: ['Transverse', 'Longitudinal', 'Electromagnetic', 'Surface'], answer: 1, explain: 'Sound waves are longitudinal — compressions and rarefactions.' },
-      { q: 'What is the formula for kinetic energy?', opts: ['mgh', '½mv²', 'Fd', 'PV'], answer: 1, explain: 'Kinetic energy = ½ × mass × velocity².' },
-      { q: 'Who developed the theory of general relativity?', opts: ['Newton', 'Einstein', 'Hawking', 'Bohr'], answer: 1, explain: 'Albert Einstein published general relativity in 1915.' },
+      { q: 'Speed of light?', opts: ['300,000 km/s', '150,000 km/s', '300,000 m/s', '1,000,000 km/s'], answer: 0, explain: '~300,000 km/s.' },
+      { q: 'E = mc² describes:', opts: ['Kinetic energy', 'Mass-energy equivalence', 'Gravity', 'Ohm\'s law'], answer: 1, explain: 'Mass-energy equivalence.' },
+      { q: 'SI unit of force?', opts: ['Joule', 'Watt', 'Newton', 'Pascal'], answer: 2, explain: 'Newton.' },
+      { q: 'Newton\'s First Law?', opts: ['Acceleration', 'Inertia', 'Action-reaction', 'Gravity'], answer: 1, explain: 'Inertia.' },
+      { q: 'Negative charge particle?', opts: ['Proton', 'Neutron', 'Electron', 'Photon'], answer: 2, explain: 'Electron.' },
+      { q: 'Gravity on Earth?', opts: ['8.9 m/s²', '9.8 m/s²', '10.8 m/s²', '6.7 m/s²'], answer: 1, explain: '9.8 m/s².' },
+      { q: 'Energy conservation law?', opts: ['1st Law of Thermo', '2nd Law of Thermo', 'Conservation of Momentum', 'Heisenberg'], answer: 0, explain: '1st Law of Thermodynamics.' },
+      { q: 'Sound is what wave?', opts: ['Transverse', 'Longitudinal', 'Electromagnetic', 'Surface'], answer: 1, explain: 'Longitudinal.' },
+      { q: 'Kinetic energy formula?', opts: ['mgh', '½mv²', 'Fd', 'PV'], answer: 1, explain: '½mv².' },
+      { q: 'General relativity by?', opts: ['Newton', 'Einstein', 'Hawking', 'Bohr'], answer: 1, explain: 'Einstein.' },
     ]
   },
   {
-    id: 'chemistry',
-    name: 'Chemistry',
-    icon: '🧪',
-    color: '#a78bfa',
-    questions: 16,
-    difficulty: 'Medium',
-    progress: 55,
+    id: 'chemistry', name: 'Chemistry', icon: '🧪', color: '#a78bfa',
+    questions: 16, difficulty: 'Medium', progress: 55,
     quiz: [
-      { q: 'What is the chemical symbol for water?', opts: ['HO', 'H₂O', 'OH₂', 'H₃O'], answer: 1, explain: 'Water is H₂O — two hydrogen atoms and one oxygen atom.' },
-      { q: 'What is the atomic number of Carbon?', opts: ['4', '6', '8', '12'], answer: 1, explain: 'Carbon has 6 protons, so its atomic number is 6.' },
-      { q: 'What is the pH of a neutral substance?', opts: ['0', '7', '14', '1'], answer: 1, explain: 'A pH of 7 is neutral. Below 7 is acidic, above 7 is basic.' },
-      { q: 'Which element is a noble gas?', opts: ['Nitrogen', 'Oxygen', 'Neon', 'Hydrogen'], answer: 2, explain: 'Neon (Ne) is in Group 18, the noble gases.' },
-      { q: 'What is NaCl commonly known as?', opts: ['Sugar', 'Baking soda', 'Table salt', 'Vinegar'], answer: 2, explain: 'NaCl is sodium chloride, commonly known as table salt.' },
-      { q: 'How many bonds can a carbon atom form?', opts: ['2', '3', '4', '6'], answer: 2, explain: 'Carbon has 4 valence electrons and can form 4 covalent bonds.' },
-      { q: 'What gas do plants absorb from the atmosphere?', opts: ['Oxygen', 'Nitrogen', 'Carbon dioxide', 'Hydrogen'], answer: 2, explain: 'Plants absorb CO₂ during photosynthesis to produce glucose and oxygen.' },
-      { q: 'What is an isotope?', opts: ['Same element, different protons', 'Same element, different neutrons', 'Different element, same mass', 'An ion'], answer: 1, explain: 'Isotopes are atoms of the same element with different numbers of neutrons.' },
-      { q: 'Which state of matter has a fixed shape?', opts: ['Gas', 'Liquid', 'Solid', 'Plasma'], answer: 2, explain: 'Solids have a definite shape and volume due to tightly packed particles.' },
-      { q: 'What type of reaction releases energy?', opts: ['Endothermic', 'Exothermic', 'Synthesis', 'Decomposition'], answer: 1, explain: 'Exothermic reactions release energy as heat to the surroundings.' },
+      { q: 'Chemical symbol for water?', opts: ['HO', 'H₂O', 'OH₂', 'H₃O'], answer: 1, explain: 'H₂O.' },
+      { q: 'Atomic number of Carbon?', opts: ['4', '6', '8', '12'], answer: 1, explain: '6.' },
+      { q: 'pH of neutral substance?', opts: ['0', '7', '14', '1'], answer: 1, explain: '7.' },
+      { q: 'Noble gas?', opts: ['Nitrogen', 'Oxygen', 'Neon', 'Hydrogen'], answer: 2, explain: 'Neon.' },
+      { q: 'NaCl is:', opts: ['Sugar', 'Baking soda', 'Table salt', 'Vinegar'], answer: 2, explain: 'Table salt.' },
+      { q: 'Bonds carbon can form?', opts: ['2', '3', '4', '6'], answer: 2, explain: '4.' },
+      { q: 'Gas plants absorb?', opts: ['Oxygen', 'Nitrogen', 'CO₂', 'Hydrogen'], answer: 2, explain: 'Carbon dioxide.' },
+      { q: 'Isotope = same element, different?', opts: ['Protons', 'Neutrons', 'Mass', 'An ion'], answer: 1, explain: 'Neutrons.' },
+      { q: 'Fixed shape state?', opts: ['Gas', 'Liquid', 'Solid', 'Plasma'], answer: 2, explain: 'Solid.' },
+      { q: 'Reaction releasing energy?', opts: ['Endothermic', 'Exothermic', 'Synthesis', 'Decomposition'], answer: 1, explain: 'Exothermic.' },
     ]
   },
   {
-    id: 'economics',
-    name: 'Economics',
-    icon: '📈',
-    color: '#38bdf8',
-    questions: 25,
-    difficulty: 'Medium',
-    progress: 40,
+    id: 'economics', name: 'Economics', icon: '📈', color: '#38bdf8',
+    questions: 25, difficulty: 'Medium', progress: 40,
     quiz: [
-      { q: 'What is GDP?', opts: ['Gross Domestic Product', 'General Demand Price', 'Government Debt Plan', 'Global Distribution Protocol'], answer: 0, explain: 'GDP measures the total value of goods and services produced within a country.' },
-      { q: 'What is inflation?', opts: ['A decrease in prices', 'A general increase in prices', 'Stable prices', 'A decrease in supply'], answer: 1, explain: 'Inflation is the rate at which the general level of prices for goods and services rises.' },
-      { q: 'What is supply and demand?', opts: ['A government policy', 'A model of price determination', 'A type of tax', 'A banking system'], answer: 1, explain: 'Supply and demand is the fundamental model explaining how prices are determined in markets.' },
-      { q: 'What is a recession?', opts: ['Economic boom', 'A period of economic decline', 'Rapid inflation', 'Trade surplus'], answer: 1, explain: 'A recession is typically defined as two consecutive quarters of declining GDP.' },
-      { q: 'What does a central bank do?', opts: ['Prints money', 'Sets monetary policy', 'Collects taxes', 'Builds infrastructure'], answer: 1, explain: 'Central banks manage monetary policy, control money supply, and set interest rates.' },
-      { q: 'What is opportunity cost?', opts: ['The cost of production', 'The value of the next best alternative foregone', 'The cost of labor', 'Government spending'], answer: 1, explain: 'Opportunity cost is what you give up when choosing one option over another.' },
-      { q: 'What is a monopoly?', opts: ['A competitive market', 'A single seller dominating a market', 'A type of tax', 'A trade agreement'], answer: 1, explain: 'A monopoly exists when one company is the sole provider of a product or service.' },
-      { q: 'What is fiscal policy?', opts: ['Interest rate management', 'Government spending and taxation', 'Trade regulation', 'Banking regulation'], answer: 1, explain: 'Fiscal policy involves government decisions about spending and taxation to influence the economy.' },
-      { q: 'What is a tariff?', opts: ['A subsidy', 'A tax on imports', 'A trade agreement', 'A type of currency'], answer: 1, explain: 'A tariff is a tax imposed on imported goods to protect domestic industries.' },
-      { q: 'What is a budget deficit?', opts: ['Spending less than revenue', 'Spending more than revenue', 'Balanced budget', 'Zero spending'], answer: 1, explain: 'A budget deficit occurs when government spending exceeds its revenue.' },
-      { q: 'What is the law of demand?', opts: ['As price increases, demand increases', 'As price increases, demand decreases', 'Supply determines demand', 'Demand is fixed'], answer: 1, explain: 'The law of demand states that as price rises, quantity demanded falls, all else being equal.' },
-      { q: 'What is a market economy?', opts: ['Government controls all production', 'Decisions driven by supply and demand', 'No trade allowed', 'Only agriculture exists'], answer: 1, explain: 'In a market economy, production and prices are determined by supply and demand.' },
-      { q: 'What is a trade deficit?', opts: ['Exports exceed imports', 'Imports exceed exports', 'Balanced trade', 'No trade'], answer: 1, explain: 'A trade deficit occurs when a country imports more than it exports.' },
-      { q: 'What is an economic indicator?', opts: ['A stock price', 'A statistic used to measure economic health', 'A type of bond', 'A government agency'], answer: 1, explain: 'Economic indicators like GDP, unemployment rate, and inflation measure economic performance.' },
-      { q: 'What is elasticity in economics?', opts: ['A type of tax', 'Responsiveness of demand to price changes', 'Government flexibility', 'Market stability'], answer: 1, explain: 'Price elasticity measures how much quantity demanded changes when price changes.' },
-      { q: 'What is unemployment?', opts: ['Full employment', 'The state of being without a job while seeking work', 'Working part-time', 'Retirement'], answer: 1, explain: 'Unemployment refers to people who are actively seeking work but cannot find employment.' },
-      { q: 'What is a stock?', opts: ['A bond', 'A share of ownership in a company', 'A loan', 'A type of currency'], answer: 1, explain: 'A stock represents partial ownership (equity) in a corporation.' },
-      { q: 'What is GDP per capita?', opts: ['Total GDP', 'GDP divided by population', 'GDP minus debt', 'GDP growth rate'], answer: 1, explain: 'GDP per capita divides total GDP by population to measure average economic output per person.' },
-      { q: 'What is an externality?', opts: ['Internal cost', 'A side effect affecting third parties not involved in a transaction', 'A type of tax', 'International trade'], answer: 1, explain: 'Externalities are costs or benefits affecting third parties (e.g., pollution is a negative externality).' },
-      { q: 'What is inflation targeting?', opts: ['Eliminating inflation', 'A central bank policy to keep inflation at a set level', 'Causing deflation', 'Ignoring price changes'], answer: 1, explain: 'Inflation targeting is when a central bank sets a specific inflation rate as its goal.' },
-      { q: 'What is comparative advantage?', opts: ['Having more resources', 'Producing a good at a lower opportunity cost than others', 'Being the biggest producer', 'Having cheaper labor'], answer: 1, explain: 'Comparative advantage means producing at a lower opportunity cost, even if another producer is more efficient overall.' },
-      { q: 'What is a mixed economy?', opts: ['Pure capitalism', 'Pure communism', 'A blend of market and government intervention', 'No economy'], answer: 2, explain: 'A mixed economy combines elements of both market and planned economies.' },
-      { q: 'What is consumer surplus?', opts: ['Extra profit for producers', 'The difference between what consumers are willing to pay and what they actually pay', 'Government subsidy', 'Unused budget'], answer: 1, explain: 'Consumer surplus measures the benefit consumers receive when they pay less than their maximum willingness to pay.' },
-      { q: 'What is the multiplier effect?', opts: ['Currency multiplication', 'An initial spending leading to a larger overall economic impact', 'Interest compounding', 'Tax calculation'], answer: 1, explain: 'The multiplier effect describes how an initial injection of spending generates greater total economic activity.' },
-      { q: 'What is hyperinflation?', opts: ['Mild inflation', 'Extremely rapid and out-of-control price increases', 'Deflation', 'Stable prices'], answer: 1, explain: 'Hyperinflation is extremely fast inflation, often exceeding 50% per month, as seen in Zimbabwe and Venezuela.' },
+      { q: 'What is GDP?', opts: ['Gross Domestic Product', 'General Demand Price', 'Government Debt Plan', 'Global Distribution Protocol'], answer: 0, explain: 'Gross Domestic Product.' },
+      { q: 'Inflation is:', opts: ['Decrease in prices', 'General increase in prices', 'Stable prices', 'Decrease in supply'], answer: 1, explain: 'General increase in prices.' },
+      { q: 'Supply and demand is:', opts: ['Government policy', 'Price determination model', 'A tax', 'A banking system'], answer: 1, explain: 'Price determination model.' },
+      { q: 'Recession =:', opts: ['Economic boom', 'Economic decline', 'Rapid inflation', 'Trade surplus'], answer: 1, explain: 'Economic decline.' },
+      { q: 'Central bank does:', opts: ['Prints money', 'Sets monetary policy', 'Collects taxes', 'Builds infrastructure'], answer: 1, explain: 'Sets monetary policy.' },
+      { q: 'Opportunity cost is:', opts: ['Production cost', 'Value of next best alternative', 'Labor cost', 'Gov spending'], answer: 1, explain: 'Value of next best alternative.' },
+      { q: 'Monopoly:', opts: ['Competitive market', 'Single seller dominates', 'A tax', 'Trade agreement'], answer: 1, explain: 'Single seller dominates.' },
+      { q: 'Fiscal policy:', opts: ['Interest rates', 'Gov spending & taxation', 'Trade regulation', 'Banking regulation'], answer: 1, explain: 'Gov spending & taxation.' },
+      { q: 'Tariff:', opts: ['Subsidy', 'Tax on imports', 'Trade agreement', 'Currency'], answer: 1, explain: 'Tax on imports.' },
+      { q: 'Budget deficit:', opts: ['Spend < revenue', 'Spend > revenue', 'Balanced', 'Zero spending'], answer: 1, explain: 'Spend > revenue.' },
+      { q: 'Law of demand:', opts: ['Price↑ demand↑', 'Price↑ demand↓', 'Supply determines', 'Fixed demand'], answer: 1, explain: 'Price↑ demand↓.' },
+      { q: 'Market economy:', opts: ['Gov controls all', 'Supply & demand driven', 'No trade', 'Only agriculture'], answer: 1, explain: 'Supply & demand driven.' },
+      { q: 'Trade deficit:', opts: ['Exports > imports', 'Imports > exports', 'Balanced', 'No trade'], answer: 1, explain: 'Imports > exports.' },
+      { q: 'Economic indicator:', opts: ['Stock price', 'Stat measuring health', 'A bond', 'Gov agency'], answer: 1, explain: 'Stat measuring health.' },
+      { q: 'Elasticity:', opts: ['A tax', 'Demand responsiveness to price', 'Flexibility', 'Stability'], answer: 1, explain: 'Demand responsiveness to price.' },
+      { q: 'Unemployment:', opts: ['Full employment', 'Without job, seeking work', 'Part-time', 'Retirement'], answer: 1, explain: 'Without job, seeking work.' },
+      { q: 'Stock:', opts: ['A bond', 'Ownership share in company', 'A loan', 'Currency'], answer: 1, explain: 'Ownership share in company.' },
+      { q: 'GDP per capita:', opts: ['Total GDP', 'GDP / population', 'GDP - debt', 'GDP growth'], answer: 1, explain: 'GDP / population.' },
+      { q: 'Externality:', opts: ['Internal cost', 'Side effect on third parties', 'A tax', 'Intl trade'], answer: 1, explain: 'Side effect on third parties.' },
+      { q: 'Inflation targeting:', opts: ['Eliminate it', 'Central bank keeps inflation at set level', 'Cause deflation', 'Ignore prices'], answer: 1, explain: 'Central bank keeps inflation at set level.' },
+      { q: 'Comparative advantage:', opts: ['More resources', 'Lower opportunity cost', 'Biggest producer', 'Cheaper labor'], answer: 1, explain: 'Lower opportunity cost.' },
+      { q: 'Mixed economy:', opts: ['Pure capitalism', 'Pure communism', 'Market + gov intervention', 'No economy'], answer: 2, explain: 'Market + gov intervention.' },
+      { q: 'Consumer surplus:', opts: ['Extra profit', 'Willingness to pay - actual pay', 'Gov subsidy', 'Unused budget'], answer: 1, explain: 'Willingness to pay - actual pay.' },
+      { q: 'Multiplier effect:', opts: ['Currency multiply', 'Initial spending → larger impact', 'Interest compounding', 'Tax calc'], answer: 1, explain: 'Initial spending → larger impact.' },
+      { q: 'Hyperinflation:', opts: ['Mild inflation', 'Extremely rapid price increases', 'Deflation', 'Stable prices'], answer: 1, explain: 'Extremely rapid price increases.' },
     ]
   }
 ];
@@ -652,16 +1001,51 @@ let score = 0;
 let answered = false;
 let startTime = 0;
 let quizResults = [];
+let editingTopicId = null;
+let managingTopicId = null;
+let editingQuestionIdx = null;
+let topicIdCounter = 100;
+
+// ── ICON & COLOR RENDERING ──
+function renderIconPalette(selected) {
+  return iconPalette.map(icon =>
+    `<div class="icon-pick${icon === selected ? ' selected' : ''}" onclick="pickIcon('${icon}', this)">${icon}</div>`
+  ).join('');
+}
+function renderColorPalette(selected) {
+  return colorPalette.map(c =>
+    `<div class="color-swatch${c === selected ? ' selected' : ''}" style="background:${c}" onclick="pickColor('${c}', this)"></div>`
+  ).join('');
+}
+
+let selectedIcon = '📚';
+let selectedColor = '#7c5cfc';
+
+function pickIcon(icon, el) {
+  selectedIcon = icon;
+  document.querySelectorAll('.icon-pick').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+}
+function pickColor(color, el) {
+  selectedColor = color;
+  document.querySelectorAll('.color-swatch').forEach(e => e.classList.remove('selected'));
+  el.classList.add('selected');
+}
 
 // ── RENDER TOPICS ──
 function renderTopics() {
   const list = document.getElementById('topicsList');
   list.innerHTML = topics.map((t, i) => `
     <div class="topic-card animate delay-${i % 4 + 1}" onclick="startQuiz('${t.id}')">
+      <div class="topic-actions">
+        <button class="topic-action-btn" onclick="event.stopPropagation(); openTopicModal('${t.id}')" title="Edit">✎</button>
+        <button class="topic-action-btn" onclick="event.stopPropagation(); openQuestionModal('${t.id}')" title="Questions">☰</button>
+        <button class="topic-action-btn delete" onclick="event.stopPropagation(); confirmDeleteTopic('${t.id}')" title="Delete">✕</button>
+      </div>
       <div class="topic-icon" style="background:${t.color}22">${t.icon}</div>
       <div class="topic-info">
         <div class="topic-name">${t.name}</div>
-        <div class="topic-meta">${t.questions} questions · ${t.difficulty}</div>
+        <div class="topic-meta">${t.quiz.length} questions · ${t.difficulty}</div>
         <div class="topic-progress-wrap">
           <div class="topic-progress-bar" style="width:${t.progress}%; background:linear-gradient(90deg, ${t.color}, ${t.color}88)"></div>
         </div>
@@ -669,6 +1053,14 @@ function renderTopics() {
       <div class="topic-arrow">›</div>
     </div>
   `).join('');
+  updateStats();
+}
+
+function updateStats() {
+  let totalQ = 0;
+  topics.forEach(t => totalQ += t.quiz.length);
+  document.getElementById('statQuestions').textContent = totalQ;
+  document.getElementById('statTopics').textContent = topics.length;
 }
 
 // ── SCREEN MANAGEMENT ──
@@ -677,20 +1069,15 @@ function showScreen(id) {
   document.getElementById(id).classList.add('active');
   window.scrollTo(0, 0);
 }
-
-function goHome() {
-  showScreen('homeScreen');
-}
+function goHome() { showScreen('homeScreen'); }
 
 // ── QUIZ LOGIC ──
 function startQuiz(topicId) {
   currentTopic = topics.find(t => t.id === topicId);
-  currentQ = 0;
-  score = 0;
-  answered = false;
+  if (!currentTopic || currentTopic.quiz.length === 0) return;
+  currentQ = 0; score = 0; answered = false;
   startTime = Date.now();
   quizResults = new Array(currentTopic.quiz.length).fill(null);
-
   document.getElementById('quizTopicLabel').textContent = currentTopic.icon + ' ' + currentTopic.name;
   showScreen('quizScreen');
   renderQuestion();
@@ -700,11 +1087,8 @@ function renderQuestion() {
   const quiz = currentTopic.quiz;
   const q = quiz[currentQ];
   answered = false;
-
   document.getElementById('questionNumber').textContent = `Question ${currentQ + 1} of ${quiz.length}`;
   document.getElementById('questionText').textContent = q.q;
-
-  // progress dots
   const prog = document.getElementById('quizProgress');
   prog.innerHTML = quiz.map((_, i) => {
     let cls = 'quiz-dot';
@@ -712,16 +1096,12 @@ function renderQuestion() {
     else if (i === currentQ) cls += ' current';
     return `<div class="${cls}"></div>`;
   }).join('');
-
-  // options
   const letters = ['A', 'B', 'C', 'D'];
   document.getElementById('optionsContainer').innerHTML = q.opts.map((opt, i) => `
     <button class="option-btn" onclick="selectAnswer(${i})">
-      <span class="letter">${letters[i]}</span>
-      ${opt}
+      <span class="letter">${letters[i]}</span>${opt}
     </button>
   `).join('');
-
   document.getElementById('explanation').classList.remove('show');
   document.getElementById('nextBtn').classList.remove('show');
 }
@@ -729,47 +1109,38 @@ function renderQuestion() {
 function selectAnswer(idx) {
   if (answered) return;
   answered = true;
-
   const q = currentTopic.quiz[currentQ];
   const correct = idx === q.answer;
   if (correct) score++;
   quizResults[currentQ] = correct;
-
   const btns = document.querySelectorAll('.option-btn');
   btns.forEach((btn, i) => {
     if (i === q.answer) btn.classList.add('correct');
     else if (i === idx && !correct) btn.classList.add('wrong');
     else btn.classList.add('disabled');
   });
-
   const exp = document.getElementById('explanation');
   exp.innerHTML = `<strong>${correct ? '✓ Correct!' : '✗ Incorrect'}</strong> ${q.explain}`;
   exp.classList.add('show');
   document.getElementById('nextBtn').classList.add('show');
-  document.getElementById('nextBtn').textContent =
-    currentQ < currentTopic.quiz.length - 1 ? 'Next Question →' : 'See Results →';
+  document.getElementById('nextBtn').textContent = currentQ < currentTopic.quiz.length - 1 ? 'Next Question →' : 'See Results →';
 }
 
 function nextQuestion() {
   currentQ++;
-  if (currentQ >= currentTopic.quiz.length) {
-    showResults();
-  } else {
-    renderQuestion();
-  }
+  if (currentQ >= currentTopic.quiz.length) showResults();
+  else renderQuestion();
 }
 
 function showResults() {
   const total = currentTopic.quiz.length;
   const pct = Math.round((score / total) * 100);
   const elapsed = Math.round((Date.now() - startTime) / 1000);
-
   let emoji, title, sub;
   if (pct >= 90) { emoji = '🏆'; title = 'Outstanding!'; sub = 'You really know your stuff!'; }
   else if (pct >= 70) { emoji = '🎉'; title = 'Great Job!'; sub = 'Solid performance — keep it up!'; }
   else if (pct >= 50) { emoji = '💪'; title = 'Not Bad!'; sub = 'Room for improvement, but you\'re getting there.'; }
   else { emoji = '📖'; title = 'Keep Studying!'; sub = 'Review the material and try again.'; }
-
   document.getElementById('resultsEmoji').textContent = emoji;
   document.getElementById('resultsTitle').textContent = title;
   document.getElementById('resultsSub').textContent = sub;
@@ -777,12 +1148,196 @@ function showResults() {
   document.getElementById('resCorrect').textContent = score;
   document.getElementById('resWrong').textContent = total - score;
   document.getElementById('resTime').textContent = elapsed + 's';
-
   showScreen('resultsScreen');
 }
 
-function retryQuiz() {
-  if (currentTopic) startQuiz(currentTopic.id);
+function retryQuiz() { if (currentTopic) startQuiz(currentTopic.id); }
+
+// ── TOPIC MODAL ──
+function openTopicModal(topicId) {
+  editingTopicId = topicId || null;
+  const modal = document.getElementById('topicModal');
+  document.getElementById('topicModalTitle').textContent = editingTopicId ? 'Edit Topic' : 'Add Topic';
+  document.getElementById('tmSaveBtn').textContent = editingTopicId ? 'Save' : 'Create';
+
+  if (editingTopicId) {
+    const t = topics.find(x => x.id === editingTopicId);
+    document.getElementById('tmName').value = t.name;
+    document.getElementById('tmDifficulty').value = t.difficulty;
+    document.getElementById('tmProgress').value = t.progress;
+    document.getElementById('tmQuestionCount').value = t.quiz.length;
+    document.getElementById('tmQuestionCount').disabled = true;
+    selectedIcon = t.icon;
+    selectedColor = t.color;
+  } else {
+    document.getElementById('tmName').value = '';
+    document.getElementById('tmDifficulty').value = 'Medium';
+    document.getElementById('tmProgress').value = 0;
+    document.getElementById('tmQuestionCount').value = 10;
+    document.getElementById('tmQuestionCount').disabled = false;
+    selectedIcon = '📚';
+    selectedColor = '#7c5cfc';
+  }
+
+  document.getElementById('tmIcons').innerHTML = renderIconPalette(selectedIcon);
+  document.getElementById('tmColors').innerHTML = renderColorPalette(selectedColor);
+  modal.classList.add('open');
+}
+
+function closeTopicModal() {
+  document.getElementById('topicModal').classList.remove('open');
+}
+
+function saveTopic() {
+  const name = document.getElementById('tmName').value.trim();
+  if (!name) { document.getElementById('tmName').focus(); return; }
+
+  const difficulty = document.getElementById('tmDifficulty').value;
+  const progress = parseInt(document.getElementById('tmProgress').value) || 0;
+
+  if (editingTopicId) {
+    const t = topics.find(x => x.id === editingTopicId);
+    t.name = name;
+    t.icon = selectedIcon;
+    t.color = selectedColor;
+    t.difficulty = difficulty;
+    t.progress = Math.min(100, Math.max(0, progress));
+  } else {
+    const count = Math.max(1, parseInt(document.getElementById('tmQuestionCount').value) || 10);
+    const newQuiz = [];
+    for (let i = 0; i < count; i++) {
+      newQuiz.push({ q: `Question ${i + 1}`, opts: ['Option A', 'Option B', 'Option C', 'Option D'], answer: 0, explain: '' });
+    }
+    topics.push({
+      id: 'topic_' + (++topicIdCounter),
+      name, icon: selectedIcon, color: selectedColor,
+      questions: count, difficulty, progress: Math.min(100, Math.max(0, progress)),
+      quiz: newQuiz
+    });
+  }
+
+  closeTopicModal();
+  renderTopics();
+}
+
+function confirmDeleteTopic(topicId) {
+  const t = topics.find(x => x.id === topicId);
+  document.getElementById('confirmTitle').textContent = 'Delete Topic?';
+  document.getElementById('confirmMessage').textContent = `Are you sure you want to delete "${t.name}" and all its questions? This cannot be undone.`;
+  document.getElementById('confirmAction').onclick = function() {
+    topics = topics.filter(x => x.id !== topicId);
+    closeConfirmModal();
+    renderTopics();
+  };
+  document.getElementById('confirmModal').classList.add('open');
+}
+
+function closeConfirmModal() {
+  document.getElementById('confirmModal').classList.remove('open');
+}
+
+// ── QUESTION MODAL ──
+function openQuestionModal(topicId) {
+  managingTopicId = topicId;
+  const t = topics.find(x => x.id === topicId);
+  document.getElementById('questionModalTitle').textContent = t.icon + ' ' + t.name + ' — Questions';
+  renderQuestionList();
+  document.getElementById('questionModal').classList.add('open');
+}
+
+function closeQuestionModal() {
+  document.getElementById('questionModal').classList.remove('open');
+  renderTopics();
+}
+
+function renderQuestionList() {
+  const t = topics.find(x => x.id === managingTopicId);
+  const container = document.getElementById('questionManagerContent');
+  if (t.quiz.length === 0) {
+    container.innerHTML = '<div class="empty-state">No questions yet. Add one to get started.</div>';
+    return;
+  }
+  container.innerHTML = '<div class="question-list">' + t.quiz.map((q, i) => `
+    <div class="question-item">
+      <div class="question-item-num">${i + 1}</div>
+      <div class="question-item-text">${q.q}</div>
+      <div class="question-item-actions">
+        <button class="qi-btn" onclick="editQuestion(${i})" title="Edit">✎</button>
+        <button class="qi-btn delete" onclick="confirmDeleteQuestion(${i})" title="Delete">✕</button>
+      </div>
+    </div>
+  `).join('') + '</div>';
+}
+
+function addQuestion() {
+  editingQuestionIdx = null;
+  document.getElementById('sqModalTitle').textContent = 'Add Question';
+  document.getElementById('sqQuestion').value = '';
+  document.getElementById('sqOptA').value = '';
+  document.getElementById('sqOptB').value = '';
+  document.getElementById('sqOptC').value = '';
+  document.getElementById('sqOptD').value = '';
+  document.getElementById('sqAnswer').value = '0';
+  document.getElementById('sqExplain').value = '';
+  document.getElementById('singleQuestionModal').classList.add('open');
+}
+
+function editQuestion(idx) {
+  editingQuestionIdx = idx;
+  const q = topics.find(x => x.id === managingTopicId).quiz[idx];
+  document.getElementById('sqModalTitle').textContent = 'Edit Question';
+  document.getElementById('sqQuestion').value = q.q;
+  document.getElementById('sqOptA').value = q.opts[0] || '';
+  document.getElementById('sqOptB').value = q.opts[1] || '';
+  document.getElementById('sqOptC').value = q.opts[2] || '';
+  document.getElementById('sqOptD').value = q.opts[3] || '';
+  document.getElementById('sqAnswer').value = q.answer;
+  document.getElementById('sqExplain').value = q.explain;
+  document.getElementById('singleQuestionModal').classList.add('open');
+}
+
+function closeSingleQuestionModal() {
+  document.getElementById('singleQuestionModal').classList.remove('open');
+}
+
+function saveSingleQuestion() {
+  const qText = document.getElementById('sqQuestion').value.trim();
+  if (!qText) { document.getElementById('sqQuestion').focus(); return; }
+
+  const qObj = {
+    q: qText,
+    opts: [
+      document.getElementById('sqOptA').value.trim() || 'Option A',
+      document.getElementById('sqOptB').value.trim() || 'Option B',
+      document.getElementById('sqOptC').value.trim() || 'Option C',
+      document.getElementById('sqOptD').value.trim() || 'Option D',
+    ],
+    answer: parseInt(document.getElementById('sqAnswer').value),
+    explain: document.getElementById('sqExplain').value.trim()
+  };
+
+  const t = topics.find(x => x.id === managingTopicId);
+  if (editingQuestionIdx !== null) {
+    t.quiz[editingQuestionIdx] = qObj;
+  } else {
+    t.quiz.push(qObj);
+  }
+
+  closeSingleQuestionModal();
+  renderQuestionList();
+}
+
+function confirmDeleteQuestion(idx) {
+  const q = topics.find(x => x.id === managingTopicId).quiz[idx];
+  document.getElementById('confirmTitle').textContent = 'Delete Question?';
+  document.getElementById('confirmMessage').textContent = `Delete "${q.q.substring(0, 60)}${q.q.length > 60 ? '…' : ''}"?`;
+  document.getElementById('confirmAction').onclick = function() {
+    const t = topics.find(x => x.id === managingTopicId);
+    t.quiz.splice(idx, 1);
+    closeConfirmModal();
+    renderQuestionList();
+  };
+  document.getElementById('confirmModal').classList.add('open');
 }
 
 // ── INIT ──
