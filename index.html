@@ -33,604 +33,139 @@
     overflow-x: hidden;
   }
 
-  .app {
-    max-width: 640px;
-    margin: 0 auto;
-    padding: 20px 16px 100px;
-  }
+  .app { max-width: 640px; margin: 0 auto; padding: 20px 16px 100px; }
 
-  /* ── HEADER ── */
-  .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px 0 24px;
-    background: #000000;
-  }
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 22px;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-  }
-  .logo-icon {
-    width: 38px; height: 38px;
-    background: linear-gradient(135deg, var(--accent), #a78bfa);
-    border-radius: 12px;
-    display: grid;
-    place-items: center;
-    font-size: 20px;
-  }
-  .streak-badge {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    padding: 8px 14px;
-    border-radius: 40px;
-    font-weight: 600;
-    font-size: 14px;
-  }
+  .header { display: flex; align-items: center; justify-content: space-between; padding: 16px 0 24px; background: #000; }
+  .logo { display: flex; align-items: center; gap: 10px; font-size: 22px; font-weight: 800; letter-spacing: -0.5px; }
+  .logo-icon { width: 38px; height: 38px; background: linear-gradient(135deg, var(--accent), #a78bfa); border-radius: 12px; display: grid; place-items: center; font-size: 20px; }
+  .streak-badge { display: flex; align-items: center; gap: 6px; background: var(--card); border: 1px solid var(--border); padding: 8px 14px; border-radius: 40px; font-weight: 600; font-size: 14px; }
   .streak-badge .fire { font-size: 18px; }
 
-  /* ── STATS ROW ── */
-  .stats-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-bottom: 28px;
-  }
-  .stat-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 16px 14px;
-    text-align: center;
-  }
-  .stat-card .value {
-    font-size: 26px;
-    font-weight: 800;
-    margin-bottom: 2px;
-  }
-  .stat-card .label {
-    font-size: 12px;
-    color: var(--text-dim);
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
+  .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 28px; }
+  .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 14px; text-align: center; }
+  .stat-card .value { font-size: 26px; font-weight: 800; margin-bottom: 2px; }
+  .stat-card .label { font-size: 12px; color: var(--text-dim); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
 
-  /* ── SECTION TITLES ── */
-  .section-title {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+  .section-title { font-size: 18px; font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
 
-  /* ── TOPIC CARDS ── */
-  .topics-grid {
-    display: grid;
-    gap: 10px;
-    margin-bottom: 32px;
-  }
-  .topic-card {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 16px 18px;
-    cursor: pointer;
-    transition: all 0.2s;
-    position: relative;
-    overflow: hidden;
-  }
-  .topic-card:hover {
-    background: var(--card-hover);
-    border-color: var(--accent);
-    transform: translateY(-1px);
-  }
+  .topics-grid { display: grid; gap: 10px; margin-bottom: 32px; }
+  .topic-card { display: flex; align-items: center; gap: 14px; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden; }
+  .topic-card:hover { background: var(--card-hover); border-color: var(--accent); transform: translateY(-1px); }
   .topic-card:hover .topic-actions { opacity: 1; pointer-events: all; }
-  .topic-icon {
-    width: 50px; height: 50px;
-    border-radius: 14px;
-    display: grid;
-    place-items: center;
-    font-size: 26px;
-    flex-shrink: 0;
-  }
+  .topic-icon { width: 50px; height: 50px; border-radius: 14px; display: grid; place-items: center; font-size: 26px; flex-shrink: 0; }
   .topic-info { flex: 1; }
   .topic-name { font-weight: 700; font-size: 16px; margin-bottom: 3px; }
   .topic-meta { font-size: 13px; color: var(--text-dim); }
-  .topic-progress-wrap {
-    width: 100%;
-    height: 5px;
-    background: rgba(255,255,255,0.06);
-    border-radius: 99px;
-    margin-top: 8px;
-    overflow: hidden;
-  }
-  .topic-progress-bar {
-    height: 100%;
-    border-radius: 99px;
-    background: linear-gradient(90deg, var(--accent), #a78bfa);
-    transition: width 0.6s ease;
-  }
-  .topic-arrow {
-    color: var(--text-dim);
-    font-size: 20px;
-    flex-shrink: 0;
-  }
-  .topic-actions {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    display: flex;
-    gap: 4px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s;
-  }
-  .topic-action-btn {
-    width: 30px; height: 30px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    background: var(--bg);
-    color: var(--text-dim);
-    font-size: 14px;
-    cursor: pointer;
-    display: grid;
-    place-items: center;
-    transition: all 0.15s;
-  }
+  .topic-progress-wrap { width: 100%; height: 5px; background: rgba(255,255,255,0.06); border-radius: 99px; margin-top: 8px; overflow: hidden; }
+  .topic-progress-bar { height: 100%; border-radius: 99px; transition: width 0.6s ease; }
+  .topic-arrow { color: var(--text-dim); font-size: 20px; flex-shrink: 0; }
+  .topic-actions { position: absolute; top: 8px; right: 8px; display: flex; gap: 4px; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+  .topic-action-btn { width: 30px; height: 30px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg); color: var(--text-dim); font-size: 14px; cursor: pointer; display: grid; place-items: center; transition: all 0.15s; }
   .topic-action-btn:hover { border-color: var(--accent); color: var(--text); }
   .topic-action-btn.delete:hover { border-color: var(--red); color: var(--red); }
 
-  /* ── ADD TOPIC BUTTON ── */
-  .add-topic-btn {
-    width: 100%;
-    padding: 16px;
-    border-radius: var(--radius);
-    border: 2px dashed var(--border);
-    background: transparent;
-    color: var(--text-dim);
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    margin-bottom: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-  }
-  .add-topic-btn:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-    background: rgba(124,92,252,0.05);
-  }
+  .add-topic-btn { width: 100%; padding: 16px; border-radius: var(--radius); border: 2px dashed var(--border); background: transparent; color: var(--text-dim); font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; margin-bottom: 32px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .add-topic-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(124,92,252,0.05); }
 
-  /* ── QUIZ SCREEN ── */
   .screen { display: none; }
   .screen.active { display: block; }
 
-  .back-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    color: var(--text);
-    padding: 10px 18px;
-    border-radius: 40px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    margin-bottom: 24px;
-    transition: background 0.2s;
-  }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--card); border: 1px solid var(--border); color: var(--text); padding: 10px 18px; border-radius: 40px; font-size: 14px; font-weight: 600; cursor: pointer; margin-bottom: 24px; transition: background 0.2s; }
   .back-btn:hover { background: var(--card-hover); }
 
-  .quiz-header {
-    text-align: center;
-    margin-bottom: 24px;
-  }
-  .quiz-topic-label {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--accent);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 6px;
-  }
-  .quiz-progress {
-    display: flex;
-    gap: 4px;
-    justify-content: center;
-    margin-top: 14px;
-  }
-  .quiz-dot {
-    width: 32px; height: 5px;
-    border-radius: 99px;
-    background: var(--border);
-    transition: background 0.3s;
-  }
+  .quiz-header { text-align: center; margin-bottom: 24px; }
+  .quiz-topic-label { font-size: 13px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .quiz-progress { display: flex; gap: 4px; justify-content: center; margin-top: 14px; }
+  .quiz-dot { width: 32px; height: 5px; border-radius: 99px; background: var(--border); transition: background 0.3s; }
   .quiz-dot.done { background: var(--green); }
   .quiz-dot.current { background: var(--accent); }
   .quiz-dot.wrong { background: var(--red); }
 
-  .question-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 28px 22px;
-    margin-bottom: 16px;
-    text-align: center;
-  }
-  .question-number {
-    font-size: 13px;
-    color: var(--text-dim);
-    margin-bottom: 10px;
-    font-weight: 500;
-  }
-  .question-text {
-    font-size: 20px;
-    font-weight: 700;
-    line-height: 1.4;
-  }
+  .question-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 22px; margin-bottom: 16px; text-align: center; }
+  .question-number { font-size: 13px; color: var(--text-dim); margin-bottom: 10px; font-weight: 500; }
+  .question-text { font-size: 20px; font-weight: 700; line-height: 1.4; }
 
-  .options {
-    display: grid;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  .option-btn {
-    width: 100%;
-    text-align: left;
-    padding: 16px 20px;
-    background: var(--card);
-    border: 2px solid var(--border);
-    border-radius: 14px;
-    color: var(--text);
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .option-btn:hover:not(.disabled) {
-    border-color: var(--accent);
-    background: var(--card-hover);
-  }
-  .option-btn .letter {
-    width: 32px; height: 32px;
-    border-radius: 10px;
-    background: rgba(255,255,255,0.05);
-    display: grid;
-    place-items: center;
-    font-size: 13px;
-    font-weight: 700;
-    flex-shrink: 0;
-    color: var(--text-dim);
-  }
-  .option-btn.correct {
-    border-color: var(--green);
-    background: rgba(52, 211, 153, 0.1);
-  }
-  .option-btn.correct .letter {
-    background: var(--green);
-    color: #000;
-  }
-  .option-btn.wrong {
-    border-color: var(--red);
-    background: rgba(248, 113, 113, 0.1);
-  }
-  .option-btn.wrong .letter {
-    background: var(--red);
-    color: #000;
-  }
+  .options { display: grid; gap: 10px; margin-bottom: 20px; }
+  .option-btn { width: 100%; text-align: left; padding: 16px 20px; background: var(--card); border: 2px solid var(--border); border-radius: 14px; color: var(--text); font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 12px; }
+  .option-btn:hover:not(.disabled) { border-color: var(--accent); background: var(--card-hover); }
+  .option-btn .letter { width: 32px; height: 32px; border-radius: 10px; background: rgba(255,255,255,0.05); display: grid; place-items: center; font-size: 13px; font-weight: 700; flex-shrink: 0; color: var(--text-dim); }
+  .option-btn.correct { border-color: var(--green); background: rgba(52, 211, 153, 0.1); }
+  .option-btn.correct .letter { background: var(--green); color: #000; }
+  .option-btn.wrong { border-color: var(--red); background: rgba(248, 113, 113, 0.1); }
+  .option-btn.wrong .letter { background: var(--red); color: #000; }
   .option-btn.disabled { pointer-events: none; opacity: 0.5; }
 
-  .explanation {
-    background: rgba(124, 92, 252, 0.08);
-    border: 1px solid rgba(124, 92, 252, 0.2);
-    border-radius: 14px;
-    padding: 16px 20px;
-    margin-bottom: 16px;
-    font-size: 14px;
-    line-height: 1.6;
-    color: #c4b5fd;
-    display: none;
-  }
+  .explanation { background: rgba(124, 92, 252, 0.08); border: 1px solid rgba(124, 92, 252, 0.2); border-radius: 14px; padding: 16px 20px; margin-bottom: 16px; font-size: 14px; line-height: 1.6; color: #c4b5fd; display: none; }
   .explanation.show { display: block; }
   .explanation strong { color: var(--accent); }
 
-  .next-btn {
-    width: 100%;
-    padding: 16px;
-    background: linear-gradient(135deg, var(--accent), #6d4de8);
-    border: none;
-    border-radius: 14px;
-    color: #fff;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: transform 0.15s, box-shadow 0.2s;
-    display: none;
-  }
+  .next-btn { width: 100%; padding: 16px; background: linear-gradient(135deg, var(--accent), #6d4de8); border: none; border-radius: 14px; color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: transform 0.15s, box-shadow 0.2s; display: none; }
   .next-btn.show { display: block; }
-  .next-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 8px 30px var(--accent-glow);
-  }
+  .next-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 30px var(--accent-glow); }
 
-  /* ── RESULTS SCREEN ── */
-  .results-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 40px 24px;
-    text-align: center;
-    margin-bottom: 24px;
-  }
+  .results-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 40px 24px; text-align: center; margin-bottom: 24px; }
   .results-emoji { font-size: 64px; margin-bottom: 16px; }
   .results-title { font-size: 26px; font-weight: 800; margin-bottom: 6px; }
   .results-sub { color: var(--text-dim); font-size: 15px; margin-bottom: 24px; }
-  .results-score {
-    font-size: 56px;
-    font-weight: 800;
-    background: linear-gradient(135deg, var(--accent), #a78bfa);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 4px;
-  }
+  .results-score { font-size: 56px; font-weight: 800; background: linear-gradient(135deg, var(--accent), #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 4px; }
   .results-label { font-size: 14px; color: var(--text-dim); font-weight: 500; }
-  .results-stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-top: 24px;
-    padding-top: 24px;
-    border-top: 1px solid var(--border);
-  }
+  .results-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border); }
   .results-stat .val { font-size: 22px; font-weight: 800; }
   .results-stat .lbl { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
 
-  .action-btn {
-    width: 100%;
-    padding: 16px;
-    border-radius: 14px;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-    border: none;
-    transition: transform 0.15s;
-    margin-bottom: 10px;
-  }
+  .action-btn { width: 100%; padding: 16px; border-radius: 14px; font-size: 16px; font-weight: 700; cursor: pointer; border: none; transition: transform 0.15s; margin-bottom: 10px; }
   .action-btn:hover { transform: translateY(-1px); }
-  .action-primary {
-    background: linear-gradient(135deg, var(--accent), #6d4de8);
-    color: #fff;
-  }
-  .action-secondary {
-    background: var(--card);
-    border: 1px solid var(--border);
-    color: var(--text);
-  }
+  .action-primary { background: linear-gradient(135deg, var(--accent), #6d4de8); color: #fff; }
+  .action-secondary { background: var(--card); border: 1px solid var(--border); color: var(--text); }
+  .btn-danger { background: var(--red); color: #fff; }
 
-  /* ── MODAL ── */
-  .modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.7);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    backdrop-filter: blur(4px);
-  }
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(4px); }
   .modal-overlay.open { display: flex; }
-  .modal {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 28px 24px;
-    width: 100%;
-    max-width: 480px;
-    max-height: 90vh;
-    overflow-y: auto;
-  }
-  .modal-title {
-    font-size: 20px;
-    font-weight: 800;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .modal-close {
-    width: 32px; height: 32px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    background: transparent;
-    color: var(--text-dim);
-    font-size: 18px;
-    cursor: pointer;
-    display: grid;
-    place-items: center;
-  }
+  .modal { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 28px 24px; width: 100%; max-width: 480px; max-height: 90vh; overflow-y: auto; }
+  .modal-title { font-size: 20px; font-weight: 800; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; }
+  .modal-close { width: 32px; height: 32px; border-radius: 8px; border: 1px solid var(--border); background: transparent; color: var(--text-dim); font-size: 18px; cursor: pointer; display: grid; place-items: center; }
   .modal-close:hover { border-color: var(--red); color: var(--red); }
 
-  /* ── FORM ELEMENTS ── */
-  .form-group {
-    margin-bottom: 16px;
-  }
-  .form-label {
-    display: block;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-dim);
-    margin-bottom: 6px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  .form-input, .form-select, .form-textarea {
-    width: 100%;
-    padding: 12px 16px;
-    background: var(--bg);
-    border: 2px solid var(--border);
-    border-radius: 12px;
-    color: var(--text);
-    font-family: inherit;
-    font-size: 15px;
-    font-weight: 500;
-    transition: border-color 0.2s;
-  }
-  .form-input:focus, .form-select:focus, .form-textarea:focus {
-    outline: none;
-    border-color: var(--accent);
-  }
-  .form-textarea {
-    resize: vertical;
-    min-height: 80px;
-  }
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-  .color-options {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-  .color-swatch {
-    width: 32px; height: 32px;
-    border-radius: 10px;
-    border: 3px solid transparent;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
+  .form-group { margin-bottom: 16px; }
+  .form-label { display: block; font-size: 13px; font-weight: 600; color: var(--text-dim); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .form-input, .form-select, .form-textarea { width: 100%; padding: 12px 16px; background: var(--bg); border: 2px solid var(--border); border-radius: 12px; color: var(--text); font-family: inherit; font-size: 15px; font-weight: 500; transition: border-color 0.2s; }
+  .form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: var(--accent); }
+  .form-textarea { resize: vertical; min-height: 80px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .color-options { display: flex; gap: 8px; flex-wrap: wrap; }
+  .color-swatch { width: 32px; height: 32px; border-radius: 10px; border: 3px solid transparent; cursor: pointer; transition: all 0.15s; }
   .color-swatch:hover { transform: scale(1.15); }
   .color-swatch.selected { border-color: var(--text); }
-
-  .icon-options {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-  .icon-pick {
-    width: 40px; height: 40px;
-    border-radius: 10px;
-    border: 2px solid var(--border);
-    background: var(--bg);
-    font-size: 20px;
-    cursor: pointer;
-    display: grid;
-    place-items: center;
-    transition: all 0.15s;
-  }
+  .icon-options { display: flex; gap: 8px; flex-wrap: wrap; }
+  .icon-pick { width: 40px; height: 40px; border-radius: 10px; border: 2px solid var(--border); background: var(--bg); font-size: 20px; cursor: pointer; display: grid; place-items: center; transition: all 0.15s; }
   .icon-pick:hover { border-color: var(--accent); }
   .icon-pick.selected { border-color: var(--accent); background: rgba(124,92,252,0.1); }
 
-  .btn-row {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-  }
+  .btn-row { display: flex; gap: 10px; margin-top: 20px; }
   .btn-row .action-btn { margin-bottom: 0; flex: 1; }
 
-  .btn-danger {
-    background: var(--red);
-    color: #fff;
-    border: none;
-  }
-
-  /* ── QUESTION MANAGER ── */
-  .question-list {
-    display: grid;
-    gap: 8px;
-    margin-bottom: 16px;
-  }
-  .question-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 12px 14px;
-    transition: border-color 0.2s;
-  }
+  .question-list { display: grid; gap: 8px; margin-bottom: 16px; }
+  .question-item { display: flex; align-items: center; gap: 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; transition: border-color 0.2s; }
   .question-item:hover { border-color: var(--accent); }
-  .question-item-num {
-    width: 28px; height: 28px;
-    border-radius: 8px;
-    background: var(--accent);
-    color: #fff;
-    font-size: 12px;
-    font-weight: 700;
-    display: grid;
-    place-items: center;
-    flex-shrink: 0;
-  }
-  .question-item-text {
-    flex: 1;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 1.3;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  .question-item-actions {
-    display: flex;
-    gap: 4px;
-    flex-shrink: 0;
-  }
-  .qi-btn {
-    width: 28px; height: 28px;
-    border-radius: 6px;
-    border: 1px solid var(--border);
-    background: transparent;
-    color: var(--text-dim);
-    font-size: 12px;
-    cursor: pointer;
-    display: grid;
-    place-items: center;
-  }
+  .question-item-num { width: 28px; height: 28px; border-radius: 8px; background: var(--accent); color: #fff; font-size: 12px; font-weight: 700; display: grid; place-items: center; flex-shrink: 0; }
+  .question-item-text { flex: 1; font-size: 14px; font-weight: 500; line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .question-item-actions { display: flex; gap: 4px; flex-shrink: 0; }
+  .qi-btn { width: 28px; height: 28px; border-radius: 6px; border: 1px solid var(--border); background: transparent; color: var(--text-dim); font-size: 12px; cursor: pointer; display: grid; place-items: center; }
   .qi-btn:hover { border-color: var(--accent); color: var(--text); }
   .qi-btn.delete:hover { border-color: var(--red); color: var(--red); }
+  .empty-state { text-align: center; padding: 32px 16px; color: var(--text-dim); font-size: 14px; }
 
-  .empty-state {
-    text-align: center;
-    padding: 32px 16px;
-    color: var(--text-dim);
-    font-size: 14px;
-  }
+  .loading-screen { display: flex; justify-content: center; align-items: center; min-height: 60vh; }
+  .spinner { width: 40px; height: 40px; border: 4px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
   .animate { animation: fadeUp 0.35s ease both; }
   .delay-1 { animation-delay: 0.05s; }
   .delay-2 { animation-delay: 0.1s; }
   .delay-3 { animation-delay: 0.15s; }
   .delay-4 { animation-delay: 0.2s; }
 
-  /* ── RESPONSIVE ── */
   @media (max-width: 420px) {
     .stats-row { grid-template-columns: repeat(3, 1fr); gap: 6px; }
     .stat-card { padding: 12px 8px; }
@@ -643,22 +178,15 @@
 <body>
 <div class="app">
 
-  <!-- ===== HOME SCREEN ===== -->
+  <!-- HOME -->
   <div id="homeScreen" class="screen active">
     <div class="header animate">
-      <div class="logo">
-        <div class="logo-icon">📚</div>
-        StudyStreak
-      </div>
-      <div class="streak-badge">
-        <span class="fire">🔥</span>
-        <span id="streakCount">7</span> day streak
-      </div>
+      <div class="logo"><div class="logo-icon">📚</div> StudyStreak</div>
+      <div class="streak-badge"><span class="fire">🔥</span> <span id="streakCount">7</span> day streak</div>
     </div>
-
     <div class="stats-row">
       <div class="stat-card animate delay-1">
-        <div class="value" style="color:var(--accent)" id="statQuestions">0</div>
+        <div class="value" style="color:var(--accent)" id="statQuestions">...</div>
         <div class="label">Questions</div>
       </div>
       <div class="stat-card animate delay-2">
@@ -666,17 +194,18 @@
         <div class="label">Accuracy</div>
       </div>
       <div class="stat-card animate delay-3">
-        <div class="value" style="color:var(--orange)" id="statTopics">0</div>
+        <div class="value" style="color:var(--orange)" id="statTopics">...</div>
         <div class="label">Topics</div>
       </div>
     </div>
-
     <div class="section-title animate delay-2">📖 Study Topics</div>
-    <div class="topics-grid" id="topicsList"></div>
+    <div class="topics-grid" id="topicsList">
+      <div class="loading-screen"><div class="spinner"></div></div>
+    </div>
     <button class="add-topic-btn" onclick="openTopicModal()">+ Add Topic</button>
   </div>
 
-  <!-- ===== QUIZ SCREEN ===== -->
+  <!-- QUIZ -->
   <div id="quizScreen" class="screen">
     <button class="back-btn" onclick="goHome()">← Back</button>
     <div class="quiz-header">
@@ -692,7 +221,7 @@
     <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Next Question →</button>
   </div>
 
-  <!-- ===== RESULTS SCREEN ===== -->
+  <!-- RESULTS -->
   <div id="resultsScreen" class="screen">
     <button class="back-btn" onclick="goHome()">← Home</button>
     <div class="results-card animate">
@@ -702,18 +231,9 @@
       <div class="results-score" id="resultsScore"></div>
       <div class="results-label">correct answers</div>
       <div class="results-stats">
-        <div class="results-stat">
-          <div class="val" id="resCorrect" style="color:var(--green)">0</div>
-          <div class="lbl">Correct</div>
-        </div>
-        <div class="results-stat">
-          <div class="val" id="resWrong" style="color:var(--red)">0</div>
-          <div class="lbl">Wrong</div>
-        </div>
-        <div class="results-stat">
-          <div class="val" id="resTime" style="color:var(--orange)">0s</div>
-          <div class="lbl">Time</div>
-        </div>
+        <div class="results-stat"><div class="val" id="resCorrect" style="color:var(--green)">0</div><div class="lbl">Correct</div></div>
+        <div class="results-stat"><div class="val" id="resWrong" style="color:var(--red)">0</div><div class="lbl">Wrong</div></div>
+        <div class="results-stat"><div class="val" id="resTime" style="color:var(--orange)">0s</div><div class="lbl">Time</div></div>
       </div>
     </div>
     <button class="action-btn action-primary" onclick="retryQuiz()">Try Again</button>
@@ -721,29 +241,25 @@
   </div>
 </div>
 
-<!-- ===== TOPIC MODAL ===== -->
+<!-- TOPIC MODAL -->
 <div class="modal-overlay" id="topicModal">
   <div class="modal">
     <div class="modal-title">
       <span id="topicModalTitle">Add Topic</span>
       <button class="modal-close" onclick="closeTopicModal()">✕</button>
     </div>
-
     <div class="form-group">
       <label class="form-label">Topic Name</label>
       <input class="form-input" id="tmName" placeholder="e.g. Chemistry" />
     </div>
-
     <div class="form-group">
       <label class="form-label">Icon</label>
       <div class="icon-options" id="tmIcons"></div>
     </div>
-
     <div class="form-group">
       <label class="form-label">Color</label>
       <div class="color-options" id="tmColors"></div>
     </div>
-
     <div class="form-row">
       <div class="form-group">
         <label class="form-label">Difficulty</label>
@@ -758,12 +274,6 @@
         <input class="form-input" id="tmProgress" type="number" min="0" max="100" value="0" />
       </div>
     </div>
-
-    <div class="form-group">
-      <label class="form-label">Number of Questions</label>
-      <input class="form-input" id="tmQuestionCount" type="number" min="1" max="100" value="10" />
-    </div>
-
     <div class="btn-row">
       <button class="action-btn action-secondary" onclick="closeTopicModal()">Cancel</button>
       <button class="action-btn action-primary" id="tmSaveBtn" onclick="saveTopic()">Create</button>
@@ -771,53 +281,36 @@
   </div>
 </div>
 
-<!-- ===== QUESTION MANAGER MODAL ===== -->
+<!-- QUESTION MANAGER -->
 <div class="modal-overlay" id="questionModal">
   <div class="modal">
     <div class="modal-title">
       <span id="questionModalTitle">Manage Questions</span>
       <button class="modal-close" onclick="closeQuestionModal()">✕</button>
     </div>
-
     <div id="questionManagerContent"></div>
-
     <div class="btn-row" style="margin-top:12px">
       <button class="action-btn action-secondary" onclick="closeQuestionModal()">Done</button>
-      <button class="action-btn action-primary" onclick="addQuestion()">+ Add Question</button>
+      <button class="action-btn action-primary" onclick="openSingleQuestionModal()">+ Add Question</button>
     </div>
   </div>
 </div>
 
-<!-- ===== SINGLE QUESTION EDITOR MODAL ===== -->
+<!-- SINGLE QUESTION EDITOR -->
 <div class="modal-overlay" id="singleQuestionModal">
   <div class="modal">
     <div class="modal-title">
       <span id="sqModalTitle">Edit Question</span>
       <button class="modal-close" onclick="closeSingleQuestionModal()">✕</button>
     </div>
-
     <div class="form-group">
       <label class="form-label">Question</label>
       <textarea class="form-textarea" id="sqQuestion" rows="2"></textarea>
     </div>
-
-    <div class="form-group">
-      <label class="form-label">Option A</label>
-      <input class="form-input" id="sqOptA" />
-    </div>
-    <div class="form-group">
-      <label class="form-label">Option B</label>
-      <input class="form-input" id="sqOptB" />
-    </div>
-    <div class="form-group">
-      <label class="form-label">Option C</label>
-      <input class="form-input" id="sqOptC" />
-    </div>
-    <div class="form-group">
-      <label class="form-label">Option D</label>
-      <input class="form-input" id="sqOptD" />
-    </div>
-
+    <div class="form-group"><label class="form-label">Option A</label><input class="form-input" id="sqOptA" /></div>
+    <div class="form-group"><label class="form-label">Option B</label><input class="form-input" id="sqOptB" /></div>
+    <div class="form-group"><label class="form-label">Option C</label><input class="form-input" id="sqOptC" /></div>
+    <div class="form-group"><label class="form-label">Option D</label><input class="form-input" id="sqOptD" /></div>
     <div class="form-row">
       <div class="form-group">
         <label class="form-label">Correct Answer</label>
@@ -830,12 +323,10 @@
       </div>
       <div class="form-group"></div>
     </div>
-
     <div class="form-group">
       <label class="form-label">Explanation</label>
       <textarea class="form-textarea" id="sqExplain" rows="2"></textarea>
     </div>
-
     <div class="btn-row">
       <button class="action-btn action-secondary" onclick="closeSingleQuestionModal()">Cancel</button>
       <button class="action-btn action-primary" id="sqSaveBtn" onclick="saveSingleQuestion()">Save</button>
@@ -843,7 +334,7 @@
   </div>
 </div>
 
-<!-- ===== CONFIRM DELETE MODAL ===== -->
+<!-- CONFIRM -->
 <div class="modal-overlay" id="confirmModal">
   <div class="modal" style="max-width:360px">
     <div class="modal-title">
@@ -858,143 +349,18 @@
   </div>
 </div>
 
-<script>
-// ── ICON & COLOR PALETTES ──
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+const SUPABASE_URL = 'https://aubipzeuatznoyzyaygu.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF1YmlwemV1YXR6bm95enlheWd1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQyNDY4NTgsImV4cCI6MjA5OTgyMjg1OH0.Kpu9_aNJGDdWiYiY0uCgz2GdaEvyFEMnHQgOqaGmCS0';
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON);
+
 const iconPalette = ['📐','🧬','🇪🇸','🏛️','⚛️','🧪','📈','🌍','🎨','📝','🧠','💡','🎵','📊','💻','🔬','📚','🌱','🏆','⚽'];
 const colorPalette = ['#7c5cfc','#34d399','#fb923c','#facc15','#f87171','#a78bfa','#38bdf8','#f472b6','#fbbf24','#60a5fa','#4ade80','#e879f9'];
 
-// ── FAKE DATA ──
-let topics = [
-  {
-    id: 'algebra', name: 'Algebra', icon: '📐', color: '#7c5cfc',
-    questions: 15, difficulty: 'Medium', progress: 72,
-    quiz: [
-      { q: 'Solve for x: 2x + 6 = 14', opts: ['x = 3', 'x = 4', 'x = 5', 'x = 8'], answer: 1, explain: 'Subtract 6: 2x = 8, then divide by 2: x = 4.' },
-      { q: 'What is 3² + 4²?', opts: ['12', '24', '25', '7'], answer: 2, explain: '9 + 16 = 25.' },
-      { q: 'Simplify: 2(3x + 4) - x', opts: ['5x + 8', '6x + 4', '5x + 4', '6x + 8'], answer: 0, explain: '6x + 8 - x = 5x + 8.' },
-      { q: 'If f(x) = 2x - 3, what is f(5)?', opts: ['7', '10', '13', '5'], answer: 0, explain: '2(5) - 3 = 7.' },
-      { q: 'What is the slope of y = -3x + 7?', opts: ['3', '-3', '7', '-7'], answer: 1, explain: 'Slope m = -3.' },
-      { q: 'Factor: x² - 9', opts: ['(x-3)(x+3)', '(x-9)(x+1)', '(x-3)²', '(x+3)²'], answer: 0, explain: 'Difference of squares.' },
-      { q: 'Solve: |x - 4| = 7', opts: ['x = 11 only', 'x = -3 only', 'x = 11 or x = -3', 'x = 3 or x = -11'], answer: 2, explain: 'x - 4 = 7 → 11, or x - 4 = -7 → -3.' },
-      { q: 'What is log₂(32)?', opts: ['4', '5', '6', '16'], answer: 1, explain: '2⁵ = 32.' },
-      { q: 'Simplify: (x³)²', opts: ['x⁵', 'x⁶', 'x⁹', 'x⁸'], answer: 1, explain: 'Multiply exponents: 3×2 = 6.' },
-      { q: 'Roots of x² - 5x + 6 = 0?', opts: ['x = 1, 6', 'x = 2, 3', 'x = -2, -3', 'x = 1, 5'], answer: 1, explain: '(x-2)(x-3) = 0.' },
-    ]
-  },
-  {
-    id: 'biology', name: 'Biology', icon: '🧬', color: '#34d399',
-    questions: 20, difficulty: 'Hard', progress: 45,
-    quiz: [
-      { q: 'Powerhouse of the cell?', opts: ['Nucleus', 'Ribosome', 'Mitochondria', 'Golgi apparatus'], answer: 2, explain: 'Mitochondria produce ATP.' },
-      { q: 'DNA stands for:', opts: ['Deoxyribonucleic Acid', 'Dinitrogen Acid', 'Deoxyribose Nucleic Agent', 'Dynamic Nuclear Acid'], answer: 0, explain: 'Deoxyribonucleic Acid.' },
-      { q: 'Basic unit of life?', opts: ['Atom', 'Molecule', 'Cell', 'Organ'], answer: 2, explain: 'The cell.' },
-      { q: 'Photosynthesis organelle?', opts: ['Mitochondria', 'Chloroplast', 'Vacuole', 'Lysosome'], answer: 1, explain: 'Chloroplasts.' },
-      { q: 'Bond holding DNA strands?', opts: ['Ionic', 'Hydrogen', 'Covalent', 'Metallic'], answer: 1, explain: 'Hydrogen bonds between base pairs.' },
-      { q: 'Cell division in body cells?', opts: ['Meiosis', 'Mitosis', 'Binary fission', 'Cytokinesis'], answer: 1, explain: 'Mitosis.' },
-      { q: 'Oxygen carrier in blood?', opts: ['White blood cells', 'Plasma', 'Hemoglobin', 'Platelets'], answer: 2, explain: 'Hemoglobin.' },
-      { q: 'Outermost layer of animal cell?', opts: ['Cell wall', 'Cell membrane', 'Nuclear membrane', 'Cytoplasm'], answer: 1, explain: 'Cell membrane.' },
-      { q: 'Sugar in RNA?', opts: ['Glucose', 'Deoxyribose', 'Ribose', 'Fructose'], answer: 2, explain: 'Ribose.' },
-      { q: 'Kingdom of mushrooms?', opts: ['Plantae', 'Animalia', 'Fungi', 'Protista'], answer: 2, explain: 'Fungi.' },
-    ]
-  },
-  {
-    id: 'spanish', name: 'Spanish', icon: '🇪🇸', color: '#fb923c',
-    questions: 25, difficulty: 'Easy', progress: 88,
-    quiz: [
-      { q: '"Hello" in Spanish?', opts: ['Adiós', 'Hola', 'Gracias', 'Por favor'], answer: 1, explain: 'Hola.' },
-      { q: '"Gracias" means:', opts: ['Please', 'Sorry', 'Thank you', 'Goodbye'], answer: 2, explain: 'Thank you.' },
-      { q: '"The book":', opts: ['El libro', 'La libro', 'Los libro', 'El libros'], answer: 0, explain: 'Libro is masculine.' },
-      { q: 'Past tense of "hablar":', opts: ['Hablo', 'Hablaré', 'Habló', 'Hablando'], answer: 2, explain: 'Habló.' },
-      { q: '"Yo tengo hambre":', opts: ['I am tired', 'I am hungry', 'I am thirsty', 'I am happy'], answer: 1, explain: 'I am hungry.' },
-      { q: '"Perro" means:', opts: ['Cat', 'Bird', 'Dog', 'Fish'], answer: 2, explain: 'Dog.' },
-      { q: '"Ser" for "yo":', opts: ['Eres', 'Soy', 'Es', 'Somos'], answer: 1, explain: 'Yo soy.' },
-      { q: '"Good night":', opts: ['Buenos días', 'Buenas tardes', 'Buenas noches', 'Bueno noche'], answer: 2, explain: 'Buenas noches.' },
-      { q: '"¿Dónde está el baño?":', opts: ['Kitchen', 'Bathroom', 'Bedroom', 'Exit'], answer: 1, explain: 'Where is the bathroom?' },
-      { q: 'Plural of "ciudad":', opts: ['Ciudads', 'Ciudades', 'Ciudadós', 'Ciudade'], answer: 1, explain: 'Add "-es".' },
-    ]
-  },
-  {
-    id: 'history', name: 'World History', icon: '🏛️', color: '#facc15',
-    questions: 18, difficulty: 'Medium', progress: 60,
-    quiz: [
-      { q: 'WWII ended in:', opts: ['1943', '1944', '1945', '1946'], answer: 2, explain: '1945.' },
-      { q: 'First US President?', opts: ['Jefferson', 'Adams', 'Washington', 'Franklin'], answer: 2, explain: 'George Washington.' },
-      { q: 'Renaissance began in:', opts: ['France', 'England', 'Italy', 'Spain'], answer: 2, explain: 'Italy.' },
-      { q: 'Ancient wonder in Giza?', opts: ['Hanging Gardens', 'Colossus', 'Great Pyramid', 'Lighthouse'], answer: 2, explain: 'Great Pyramid.' },
-      { q: '"I Have a Dream" by:', opts: ['Malcolm X', 'MLK Jr.', 'JFK', 'Rosa Parks'], answer: 1, explain: 'Martin Luther King Jr.' },
-      { q: 'French Revolution began:', opts: ['1776', '1789', '1799', '1804'], answer: 1, explain: '1789.' },
-      { q: 'Empire that built Machu Picchu?', opts: ['Aztec', 'Maya', 'Inca', 'Olmec'], answer: 2, explain: 'Inca.' },
-      { q: 'Wall that fell in 1989?', opts: ['Great Wall', 'Hadrian\'s', 'Berlin Wall', 'Wailing Wall'], answer: 2, explain: 'Berlin Wall.' },
-      { q: 'Penicillin discovered by?', opts: ['Pasteur', 'Fleming', 'Lister', 'Koch'], answer: 1, explain: 'Alexander Fleming.' },
-      { q: 'Industrial Revolution started in:', opts: ['Germany', 'France', 'US', 'Great Britain'], answer: 3, explain: 'Great Britain.' },
-    ]
-  },
-  {
-    id: 'physics', name: 'Physics', icon: '⚛️', color: '#f87171',
-    questions: 12, difficulty: 'Hard', progress: 33,
-    quiz: [
-      { q: 'Speed of light?', opts: ['300,000 km/s', '150,000 km/s', '300,000 m/s', '1,000,000 km/s'], answer: 0, explain: '~300,000 km/s.' },
-      { q: 'E = mc² describes:', opts: ['Kinetic energy', 'Mass-energy equivalence', 'Gravity', 'Ohm\'s law'], answer: 1, explain: 'Mass-energy equivalence.' },
-      { q: 'SI unit of force?', opts: ['Joule', 'Watt', 'Newton', 'Pascal'], answer: 2, explain: 'Newton.' },
-      { q: 'Newton\'s First Law?', opts: ['Acceleration', 'Inertia', 'Action-reaction', 'Gravity'], answer: 1, explain: 'Inertia.' },
-      { q: 'Negative charge particle?', opts: ['Proton', 'Neutron', 'Electron', 'Photon'], answer: 2, explain: 'Electron.' },
-      { q: 'Gravity on Earth?', opts: ['8.9 m/s²', '9.8 m/s²', '10.8 m/s²', '6.7 m/s²'], answer: 1, explain: '9.8 m/s².' },
-      { q: 'Energy conservation law?', opts: ['1st Law of Thermo', '2nd Law of Thermo', 'Conservation of Momentum', 'Heisenberg'], answer: 0, explain: '1st Law of Thermodynamics.' },
-      { q: 'Sound is what wave?', opts: ['Transverse', 'Longitudinal', 'Electromagnetic', 'Surface'], answer: 1, explain: 'Longitudinal.' },
-      { q: 'Kinetic energy formula?', opts: ['mgh', '½mv²', 'Fd', 'PV'], answer: 1, explain: '½mv².' },
-      { q: 'General relativity by?', opts: ['Newton', 'Einstein', 'Hawking', 'Bohr'], answer: 1, explain: 'Einstein.' },
-    ]
-  },
-  {
-    id: 'chemistry', name: 'Chemistry', icon: '🧪', color: '#a78bfa',
-    questions: 16, difficulty: 'Medium', progress: 55,
-    quiz: [
-      { q: 'Chemical symbol for water?', opts: ['HO', 'H₂O', 'OH₂', 'H₃O'], answer: 1, explain: 'H₂O.' },
-      { q: 'Atomic number of Carbon?', opts: ['4', '6', '8', '12'], answer: 1, explain: '6.' },
-      { q: 'pH of neutral substance?', opts: ['0', '7', '14', '1'], answer: 1, explain: '7.' },
-      { q: 'Noble gas?', opts: ['Nitrogen', 'Oxygen', 'Neon', 'Hydrogen'], answer: 2, explain: 'Neon.' },
-      { q: 'NaCl is:', opts: ['Sugar', 'Baking soda', 'Table salt', 'Vinegar'], answer: 2, explain: 'Table salt.' },
-      { q: 'Bonds carbon can form?', opts: ['2', '3', '4', '6'], answer: 2, explain: '4.' },
-      { q: 'Gas plants absorb?', opts: ['Oxygen', 'Nitrogen', 'CO₂', 'Hydrogen'], answer: 2, explain: 'Carbon dioxide.' },
-      { q: 'Isotope = same element, different?', opts: ['Protons', 'Neutrons', 'Mass', 'An ion'], answer: 1, explain: 'Neutrons.' },
-      { q: 'Fixed shape state?', opts: ['Gas', 'Liquid', 'Solid', 'Plasma'], answer: 2, explain: 'Solid.' },
-      { q: 'Reaction releasing energy?', opts: ['Endothermic', 'Exothermic', 'Synthesis', 'Decomposition'], answer: 1, explain: 'Exothermic.' },
-    ]
-  },
-  {
-    id: 'economics', name: 'Economics', icon: '📈', color: '#38bdf8',
-    questions: 25, difficulty: 'Medium', progress: 40,
-    quiz: [
-      { q: 'What is GDP?', opts: ['Gross Domestic Product', 'General Demand Price', 'Government Debt Plan', 'Global Distribution Protocol'], answer: 0, explain: 'Gross Domestic Product.' },
-      { q: 'Inflation is:', opts: ['Decrease in prices', 'General increase in prices', 'Stable prices', 'Decrease in supply'], answer: 1, explain: 'General increase in prices.' },
-      { q: 'Supply and demand is:', opts: ['Government policy', 'Price determination model', 'A tax', 'A banking system'], answer: 1, explain: 'Price determination model.' },
-      { q: 'Recession =:', opts: ['Economic boom', 'Economic decline', 'Rapid inflation', 'Trade surplus'], answer: 1, explain: 'Economic decline.' },
-      { q: 'Central bank does:', opts: ['Prints money', 'Sets monetary policy', 'Collects taxes', 'Builds infrastructure'], answer: 1, explain: 'Sets monetary policy.' },
-      { q: 'Opportunity cost is:', opts: ['Production cost', 'Value of next best alternative', 'Labor cost', 'Gov spending'], answer: 1, explain: 'Value of next best alternative.' },
-      { q: 'Monopoly:', opts: ['Competitive market', 'Single seller dominates', 'A tax', 'Trade agreement'], answer: 1, explain: 'Single seller dominates.' },
-      { q: 'Fiscal policy:', opts: ['Interest rates', 'Gov spending & taxation', 'Trade regulation', 'Banking regulation'], answer: 1, explain: 'Gov spending & taxation.' },
-      { q: 'Tariff:', opts: ['Subsidy', 'Tax on imports', 'Trade agreement', 'Currency'], answer: 1, explain: 'Tax on imports.' },
-      { q: 'Budget deficit:', opts: ['Spend < revenue', 'Spend > revenue', 'Balanced', 'Zero spending'], answer: 1, explain: 'Spend > revenue.' },
-      { q: 'Law of demand:', opts: ['Price↑ demand↑', 'Price↑ demand↓', 'Supply determines', 'Fixed demand'], answer: 1, explain: 'Price↑ demand↓.' },
-      { q: 'Market economy:', opts: ['Gov controls all', 'Supply & demand driven', 'No trade', 'Only agriculture'], answer: 1, explain: 'Supply & demand driven.' },
-      { q: 'Trade deficit:', opts: ['Exports > imports', 'Imports > exports', 'Balanced', 'No trade'], answer: 1, explain: 'Imports > exports.' },
-      { q: 'Economic indicator:', opts: ['Stock price', 'Stat measuring health', 'A bond', 'Gov agency'], answer: 1, explain: 'Stat measuring health.' },
-      { q: 'Elasticity:', opts: ['A tax', 'Demand responsiveness to price', 'Flexibility', 'Stability'], answer: 1, explain: 'Demand responsiveness to price.' },
-      { q: 'Unemployment:', opts: ['Full employment', 'Without job, seeking work', 'Part-time', 'Retirement'], answer: 1, explain: 'Without job, seeking work.' },
-      { q: 'Stock:', opts: ['A bond', 'Ownership share in company', 'A loan', 'Currency'], answer: 1, explain: 'Ownership share in company.' },
-      { q: 'GDP per capita:', opts: ['Total GDP', 'GDP / population', 'GDP - debt', 'GDP growth'], answer: 1, explain: 'GDP / population.' },
-      { q: 'Externality:', opts: ['Internal cost', 'Side effect on third parties', 'A tax', 'Intl trade'], answer: 1, explain: 'Side effect on third parties.' },
-      { q: 'Inflation targeting:', opts: ['Eliminate it', 'Central bank keeps inflation at set level', 'Cause deflation', 'Ignore prices'], answer: 1, explain: 'Central bank keeps inflation at set level.' },
-      { q: 'Comparative advantage:', opts: ['More resources', 'Lower opportunity cost', 'Biggest producer', 'Cheaper labor'], answer: 1, explain: 'Lower opportunity cost.' },
-      { q: 'Mixed economy:', opts: ['Pure capitalism', 'Pure communism', 'Market + gov intervention', 'No economy'], answer: 2, explain: 'Market + gov intervention.' },
-      { q: 'Consumer surplus:', opts: ['Extra profit', 'Willingness to pay - actual pay', 'Gov subsidy', 'Unused budget'], answer: 1, explain: 'Willingness to pay - actual pay.' },
-      { q: 'Multiplier effect:', opts: ['Currency multiply', 'Initial spending → larger impact', 'Interest compounding', 'Tax calc'], answer: 1, explain: 'Initial spending → larger impact.' },
-      { q: 'Hyperinflation:', opts: ['Mild inflation', 'Extremely rapid price increases', 'Deflation', 'Stable prices'], answer: 1, explain: 'Extremely rapid price increases.' },
-    ]
-  }
-];
-
-// ── STATE ──
+let allTopics = [];
+let allQuestions = [];
 let currentTopic = null;
 let currentQ = 0;
 let score = 0;
@@ -1004,136 +370,137 @@ let quizResults = [];
 let editingTopicId = null;
 let managingTopicId = null;
 let editingQuestionIdx = null;
-let topicIdCounter = 100;
-
-// ── ICON & COLOR RENDERING ──
-function renderIconPalette(selected) {
-  return iconPalette.map(icon =>
-    `<div class="icon-pick${icon === selected ? ' selected' : ''}" onclick="pickIcon('${icon}', this)">${icon}</div>`
-  ).join('');
-}
-function renderColorPalette(selected) {
-  return colorPalette.map(c =>
-    `<div class="color-swatch${c === selected ? ' selected' : ''}" style="background:${c}" onclick="pickColor('${c}', this)"></div>`
-  ).join('');
-}
-
 let selectedIcon = '📚';
 let selectedColor = '#7c5cfc';
 
-function pickIcon(icon, el) {
+function renderIconPalette(sel) {
+  return iconPalette.map(icon => `<div class="icon-pick${icon===sel?' selected':''}" onclick="window.pickIcon('${icon}',this)">${icon}</div>`).join('');
+}
+function renderColorPalette(sel) {
+  return colorPalette.map(c => `<div class="color-swatch${c===sel?' selected':''}" style="background:${c}" onclick="window.pickColor('${c}',this)"></div>`).join('');
+}
+window.pickIcon = function(icon, el) {
   selectedIcon = icon;
   document.querySelectorAll('.icon-pick').forEach(e => e.classList.remove('selected'));
   el.classList.add('selected');
-}
-function pickColor(color, el) {
+};
+window.pickColor = function(color, el) {
   selectedColor = color;
   document.querySelectorAll('.color-swatch').forEach(e => e.classList.remove('selected'));
   el.classList.add('selected');
+};
+
+async function loadData() {
+  const { data: topics } = await supabase.from('topics').select('*').order('created_at');
+  const { data: questions } = await supabase.from('questions').select('*').order('position');
+  allTopics = topics || [];
+  allQuestions = questions || [];
+  renderTopics();
 }
 
-// ── RENDER TOPICS ──
+function getQuestionsForTopic(topicId) {
+  return allQuestions.filter(q => q.topic_id === topicId).sort((a, b) => a.position - b.position);
+}
+
 function renderTopics() {
   const list = document.getElementById('topicsList');
-  list.innerHTML = topics.map((t, i) => `
-    <div class="topic-card animate delay-${i % 4 + 1}" onclick="startQuiz('${t.id}')">
+  list.innerHTML = allTopics.map((t, i) => {
+    const qCount = getQuestionsForTopic(t.id).length;
+    return `
+    <div class="topic-card animate delay-${i % 4 + 1}" onclick="window.startQuiz('${t.id}')">
       <div class="topic-actions">
-        <button class="topic-action-btn" onclick="event.stopPropagation(); openTopicModal('${t.id}')" title="Edit">✎</button>
-        <button class="topic-action-btn" onclick="event.stopPropagation(); openQuestionModal('${t.id}')" title="Questions">☰</button>
-        <button class="topic-action-btn delete" onclick="event.stopPropagation(); confirmDeleteTopic('${t.id}')" title="Delete">✕</button>
+        <button class="topic-action-btn" onclick="event.stopPropagation(); window.openTopicModal('${t.id}')" title="Edit">✎</button>
+        <button class="topic-action-btn" onclick="event.stopPropagation(); window.openQuestionModal('${t.id}')" title="Questions">☰</button>
+        <button class="topic-action-btn delete" onclick="event.stopPropagation(); window.confirmDeleteTopic('${t.id}')" title="Delete">✕</button>
       </div>
       <div class="topic-icon" style="background:${t.color}22">${t.icon}</div>
       <div class="topic-info">
         <div class="topic-name">${t.name}</div>
-        <div class="topic-meta">${t.quiz.length} questions · ${t.difficulty}</div>
+        <div class="topic-meta">${qCount} questions · ${t.difficulty}</div>
         <div class="topic-progress-wrap">
           <div class="topic-progress-bar" style="width:${t.progress}%; background:linear-gradient(90deg, ${t.color}, ${t.color}88)"></div>
         </div>
       </div>
       <div class="topic-arrow">›</div>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
   updateStats();
 }
 
 function updateStats() {
-  let totalQ = 0;
-  topics.forEach(t => totalQ += t.quiz.length);
-  document.getElementById('statQuestions').textContent = totalQ;
-  document.getElementById('statTopics').textContent = topics.length;
+  document.getElementById('statQuestions').textContent = allQuestions.length;
+  document.getElementById('statTopics').textContent = allTopics.length;
 }
 
-// ── SCREEN MANAGEMENT ──
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo(0, 0);
 }
-function goHome() { showScreen('homeScreen'); }
+window.goHome = function() { showScreen('homeScreen'); };
 
-// ── QUIZ LOGIC ──
-function startQuiz(topicId) {
-  currentTopic = topics.find(t => t.id === topicId);
-  if (!currentTopic || currentTopic.quiz.length === 0) return;
-  currentQ = 0; score = 0; answered = false;
-  startTime = Date.now();
-  quizResults = new Array(currentTopic.quiz.length).fill(null);
+// ── QUIZ ──
+window.startQuiz = async function(topicId) {
+  currentTopic = allTopics.find(t => t.id === topicId);
+  const qs = getQuestionsForTopic(topicId);
+  if (!currentTopic || qs.length === 0) return;
+  currentTopic._quiz = qs;
+  currentQ = 0; score = 0; answered = false; startTime = Date.now();
+  quizResults = new Array(qs.length).fill(null);
   document.getElementById('quizTopicLabel').textContent = currentTopic.icon + ' ' + currentTopic.name;
   showScreen('quizScreen');
   renderQuestion();
-}
+};
 
 function renderQuestion() {
-  const quiz = currentTopic.quiz;
-  const q = quiz[currentQ];
+  const qs = currentTopic._quiz;
+  const q = qs[currentQ];
   answered = false;
-  document.getElementById('questionNumber').textContent = `Question ${currentQ + 1} of ${quiz.length}`;
-  document.getElementById('questionText').textContent = q.q;
+  document.getElementById('questionNumber').textContent = `Question ${currentQ + 1} of ${qs.length}`;
+  document.getElementById('questionText').textContent = q.question_text;
   const prog = document.getElementById('quizProgress');
-  prog.innerHTML = quiz.map((_, i) => {
+  prog.innerHTML = qs.map((_, i) => {
     let cls = 'quiz-dot';
     if (i < currentQ) cls += quizResults[i] ? ' done' : ' wrong';
     else if (i === currentQ) cls += ' current';
     return `<div class="${cls}"></div>`;
   }).join('');
-  const letters = ['A', 'B', 'C', 'D'];
-  document.getElementById('optionsContainer').innerHTML = q.opts.map((opt, i) => `
-    <button class="option-btn" onclick="selectAnswer(${i})">
-      <span class="letter">${letters[i]}</span>${opt}
-    </button>
-  `).join('');
+  const letters = ['A','B','C','D'];
+  const opts = q.opts || q.options;
+  document.getElementById('optionsContainer').innerHTML = opts.map((opt, i) =>
+    `<button class="option-btn" onclick="window.selectAnswer(${i})"><span class="letter">${letters[i]}</span>${opt}</button>`
+  ).join('');
   document.getElementById('explanation').classList.remove('show');
   document.getElementById('nextBtn').classList.remove('show');
 }
 
-function selectAnswer(idx) {
+window.selectAnswer = function(idx) {
   if (answered) return;
   answered = true;
-  const q = currentTopic.quiz[currentQ];
+  const q = currentTopic._quiz[currentQ];
   const correct = idx === q.answer;
   if (correct) score++;
   quizResults[currentQ] = correct;
-  const btns = document.querySelectorAll('.option-btn');
-  btns.forEach((btn, i) => {
+  document.querySelectorAll('.option-btn').forEach((btn, i) => {
     if (i === q.answer) btn.classList.add('correct');
     else if (i === idx && !correct) btn.classList.add('wrong');
     else btn.classList.add('disabled');
   });
   const exp = document.getElementById('explanation');
-  exp.innerHTML = `<strong>${correct ? '✓ Correct!' : '✗ Incorrect'}</strong> ${q.explain}`;
+  exp.innerHTML = `<strong>${correct ? '✓ Correct!' : '✗ Incorrect'}</strong> ${q.explanation}`;
   exp.classList.add('show');
   document.getElementById('nextBtn').classList.add('show');
-  document.getElementById('nextBtn').textContent = currentQ < currentTopic.quiz.length - 1 ? 'Next Question →' : 'See Results →';
-}
+  document.getElementById('nextBtn').textContent = currentQ < currentTopic._quiz.length - 1 ? 'Next Question →' : 'See Results →';
+};
 
-function nextQuestion() {
+window.nextQuestion = function() {
   currentQ++;
-  if (currentQ >= currentTopic.quiz.length) showResults();
+  if (currentQ >= currentTopic._quiz.length) showResults();
   else renderQuestion();
-}
+};
 
 function showResults() {
-  const total = currentTopic.quiz.length;
+  const total = currentTopic._quiz.length;
   const pct = Math.round((score / total) * 100);
   const elapsed = Math.round((Date.now() - startTime) / 1000);
   let emoji, title, sub;
@@ -1151,197 +518,161 @@ function showResults() {
   showScreen('resultsScreen');
 }
 
-function retryQuiz() { if (currentTopic) startQuiz(currentTopic.id); }
+window.retryQuiz = function() { if (currentTopic) window.startQuiz(currentTopic.id); };
 
-// ── TOPIC MODAL ──
-function openTopicModal(topicId) {
+// ── TOPIC CRUD ──
+window.openTopicModal = function(topicId) {
   editingTopicId = topicId || null;
-  const modal = document.getElementById('topicModal');
   document.getElementById('topicModalTitle').textContent = editingTopicId ? 'Edit Topic' : 'Add Topic';
   document.getElementById('tmSaveBtn').textContent = editingTopicId ? 'Save' : 'Create';
-
   if (editingTopicId) {
-    const t = topics.find(x => x.id === editingTopicId);
+    const t = allTopics.find(x => x.id === editingTopicId);
     document.getElementById('tmName').value = t.name;
     document.getElementById('tmDifficulty').value = t.difficulty;
     document.getElementById('tmProgress').value = t.progress;
-    document.getElementById('tmQuestionCount').value = t.quiz.length;
-    document.getElementById('tmQuestionCount').disabled = true;
     selectedIcon = t.icon;
     selectedColor = t.color;
   } else {
     document.getElementById('tmName').value = '';
     document.getElementById('tmDifficulty').value = 'Medium';
     document.getElementById('tmProgress').value = 0;
-    document.getElementById('tmQuestionCount').value = 10;
-    document.getElementById('tmQuestionCount').disabled = false;
     selectedIcon = '📚';
     selectedColor = '#7c5cfc';
   }
-
   document.getElementById('tmIcons').innerHTML = renderIconPalette(selectedIcon);
   document.getElementById('tmColors').innerHTML = renderColorPalette(selectedColor);
-  modal.classList.add('open');
-}
+  document.getElementById('topicModal').classList.add('open');
+};
+window.closeTopicModal = function() { document.getElementById('topicModal').classList.remove('open'); };
 
-function closeTopicModal() {
-  document.getElementById('topicModal').classList.remove('open');
-}
-
-function saveTopic() {
+window.saveTopic = async function() {
   const name = document.getElementById('tmName').value.trim();
   if (!name) { document.getElementById('tmName').focus(); return; }
-
   const difficulty = document.getElementById('tmDifficulty').value;
-  const progress = parseInt(document.getElementById('tmProgress').value) || 0;
+  const progress = Math.min(100, Math.max(0, parseInt(document.getElementById('tmProgress').value) || 0));
 
   if (editingTopicId) {
-    const t = topics.find(x => x.id === editingTopicId);
-    t.name = name;
-    t.icon = selectedIcon;
-    t.color = selectedColor;
-    t.difficulty = difficulty;
-    t.progress = Math.min(100, Math.max(0, progress));
+    await supabase.from('topics').update({ name, icon: selectedIcon, color: selectedColor, difficulty, progress }).eq('id', editingTopicId);
   } else {
-    const count = Math.max(1, parseInt(document.getElementById('tmQuestionCount').value) || 10);
-    const newQuiz = [];
-    for (let i = 0; i < count; i++) {
-      newQuiz.push({ q: `Question ${i + 1}`, opts: ['Option A', 'Option B', 'Option C', 'Option D'], answer: 0, explain: '' });
-    }
-    topics.push({
-      id: 'topic_' + (++topicIdCounter),
-      name, icon: selectedIcon, color: selectedColor,
-      questions: count, difficulty, progress: Math.min(100, Math.max(0, progress)),
-      quiz: newQuiz
-    });
+    const id = name.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '') + '_' + Date.now();
+    await supabase.from('topics').insert({ id, name, icon: selectedIcon, color: selectedColor, difficulty, progress });
   }
-
   closeTopicModal();
-  renderTopics();
-}
+  await loadData();
+};
 
-function confirmDeleteTopic(topicId) {
-  const t = topics.find(x => x.id === topicId);
+window.confirmDeleteTopic = function(topicId) {
+  const t = allTopics.find(x => x.id === topicId);
   document.getElementById('confirmTitle').textContent = 'Delete Topic?';
   document.getElementById('confirmMessage').textContent = `Are you sure you want to delete "${t.name}" and all its questions? This cannot be undone.`;
-  document.getElementById('confirmAction').onclick = function() {
-    topics = topics.filter(x => x.id !== topicId);
+  document.getElementById('confirmAction').onclick = async function() {
+    await supabase.from('questions').delete().eq('topic_id', topicId);
+    await supabase.from('topics').delete().eq('id', topicId);
     closeConfirmModal();
-    renderTopics();
+    await loadData();
   };
   document.getElementById('confirmModal').classList.add('open');
-}
+};
+window.closeConfirmModal = function() { document.getElementById('confirmModal').classList.remove('open'); };
 
-function closeConfirmModal() {
-  document.getElementById('confirmModal').classList.remove('open');
-}
-
-// ── QUESTION MODAL ──
-function openQuestionModal(topicId) {
+// ── QUESTION CRUD ──
+window.openQuestionModal = function(topicId) {
   managingTopicId = topicId;
-  const t = topics.find(x => x.id === topicId);
+  const t = allTopics.find(x => x.id === topicId);
   document.getElementById('questionModalTitle').textContent = t.icon + ' ' + t.name + ' — Questions';
   renderQuestionList();
   document.getElementById('questionModal').classList.add('open');
-}
-
-function closeQuestionModal() {
+};
+window.closeQuestionModal = function() {
   document.getElementById('questionModal').classList.remove('open');
-  renderTopics();
-}
+  loadData();
+};
 
 function renderQuestionList() {
-  const t = topics.find(x => x.id === managingTopicId);
+  const qs = getQuestionsForTopic(managingTopicId);
   const container = document.getElementById('questionManagerContent');
-  if (t.quiz.length === 0) {
+  if (qs.length === 0) {
     container.innerHTML = '<div class="empty-state">No questions yet. Add one to get started.</div>';
     return;
   }
-  container.innerHTML = '<div class="question-list">' + t.quiz.map((q, i) => `
-    <div class="question-item">
+  container.innerHTML = '<div class="question-list">' + qs.map((q, i) =>
+    `<div class="question-item">
       <div class="question-item-num">${i + 1}</div>
-      <div class="question-item-text">${q.q}</div>
+      <div class="question-item-text">${q.question_text}</div>
       <div class="question-item-actions">
-        <button class="qi-btn" onclick="editQuestion(${i})" title="Edit">✎</button>
-        <button class="qi-btn delete" onclick="confirmDeleteQuestion(${i})" title="Delete">✕</button>
+        <button class="qi-btn" onclick="window.editQuestion('${q.id}')" title="Edit">✎</button>
+        <button class="qi-btn delete" onclick="window.confirmDeleteQuestion('${q.id}')" title="Delete">✕</button>
       </div>
-    </div>
-  `).join('') + '</div>';
+    </div>`
+  ).join('') + '</div>';
 }
 
-function addQuestion() {
-  editingQuestionIdx = null;
-  document.getElementById('sqModalTitle').textContent = 'Add Question';
-  document.getElementById('sqQuestion').value = '';
-  document.getElementById('sqOptA').value = '';
-  document.getElementById('sqOptB').value = '';
-  document.getElementById('sqOptC').value = '';
-  document.getElementById('sqOptD').value = '';
-  document.getElementById('sqAnswer').value = '0';
-  document.getElementById('sqExplain').value = '';
+window.openSingleQuestionModal = function(qId) {
+  editingQuestionIdx = qId || null;
+  if (qId) {
+    const q = allQuestions.find(x => x.id === qId);
+    document.getElementById('sqModalTitle').textContent = 'Edit Question';
+    document.getElementById('sqQuestion').value = q.question_text;
+    const opts = q.opts || q.options;
+    document.getElementById('sqOptA').value = opts[0] || '';
+    document.getElementById('sqOptB').value = opts[1] || '';
+    document.getElementById('sqOptC').value = opts[2] || '';
+    document.getElementById('sqOptD').value = opts[3] || '';
+    document.getElementById('sqAnswer').value = q.answer;
+    document.getElementById('sqExplain').value = q.explanation;
+  } else {
+    document.getElementById('sqModalTitle').textContent = 'Add Question';
+    document.getElementById('sqQuestion').value = '';
+    document.getElementById('sqOptA').value = '';
+    document.getElementById('sqOptB').value = '';
+    document.getElementById('sqOptC').value = '';
+    document.getElementById('sqOptD').value = '';
+    document.getElementById('sqAnswer').value = '0';
+    document.getElementById('sqExplain').value = '';
+  }
   document.getElementById('singleQuestionModal').classList.add('open');
-}
+};
+window.editQuestion = window.openSingleQuestionModal;
+window.closeSingleQuestionModal = function() { document.getElementById('singleQuestionModal').classList.remove('open'); };
 
-function editQuestion(idx) {
-  editingQuestionIdx = idx;
-  const q = topics.find(x => x.id === managingTopicId).quiz[idx];
-  document.getElementById('sqModalTitle').textContent = 'Edit Question';
-  document.getElementById('sqQuestion').value = q.q;
-  document.getElementById('sqOptA').value = q.opts[0] || '';
-  document.getElementById('sqOptB').value = q.opts[1] || '';
-  document.getElementById('sqOptC').value = q.opts[2] || '';
-  document.getElementById('sqOptD').value = q.opts[3] || '';
-  document.getElementById('sqAnswer').value = q.answer;
-  document.getElementById('sqExplain').value = q.explain;
-  document.getElementById('singleQuestionModal').classList.add('open');
-}
-
-function closeSingleQuestionModal() {
-  document.getElementById('singleQuestionModal').classList.remove('open');
-}
-
-function saveSingleQuestion() {
+window.saveSingleQuestion = async function() {
   const qText = document.getElementById('sqQuestion').value.trim();
   if (!qText) { document.getElementById('sqQuestion').focus(); return; }
+  const opts = [
+    document.getElementById('sqOptA').value.trim() || 'Option A',
+    document.getElementById('sqOptB').value.trim() || 'Option B',
+    document.getElementById('sqOptC').value.trim() || 'Option C',
+    document.getElementById('sqOptD').value.trim() || 'Option D',
+  ];
+  const answer = parseInt(document.getElementById('sqAnswer').value);
+  const explanation = document.getElementById('sqExplain').value.trim();
 
-  const qObj = {
-    q: qText,
-    opts: [
-      document.getElementById('sqOptA').value.trim() || 'Option A',
-      document.getElementById('sqOptB').value.trim() || 'Option B',
-      document.getElementById('sqOptC').value.trim() || 'Option C',
-      document.getElementById('sqOptD').value.trim() || 'Option D',
-    ],
-    answer: parseInt(document.getElementById('sqAnswer').value),
-    explain: document.getElementById('sqExplain').value.trim()
-  };
-
-  const t = topics.find(x => x.id === managingTopicId);
-  if (editingQuestionIdx !== null) {
-    t.quiz[editingQuestionIdx] = qObj;
+  if (editingQuestionIdx) {
+    await supabase.from('questions').update({ question_text: qText, options: opts, answer, explanation }).eq('id', editingQuestionIdx);
   } else {
-    t.quiz.push(qObj);
+    const qs = getQuestionsForTopic(managingTopicId);
+    await supabase.from('questions').insert({ topic_id: managingTopicId, position: qs.length, question_text: qText, options: opts, answer, explanation });
   }
-
   closeSingleQuestionModal();
+  await loadData();
   renderQuestionList();
-}
+};
 
-function confirmDeleteQuestion(idx) {
-  const q = topics.find(x => x.id === managingTopicId).quiz[idx];
+window.confirmDeleteQuestion = function(qId) {
+  const q = allQuestions.find(x => x.id === qId);
   document.getElementById('confirmTitle').textContent = 'Delete Question?';
-  document.getElementById('confirmMessage').textContent = `Delete "${q.q.substring(0, 60)}${q.q.length > 60 ? '…' : ''}"?`;
-  document.getElementById('confirmAction').onclick = function() {
-    const t = topics.find(x => x.id === managingTopicId);
-    t.quiz.splice(idx, 1);
+  document.getElementById('confirmMessage').textContent = `Delete "${q.question_text.substring(0, 60)}${q.question_text.length > 60 ? '…' : ''}"?`;
+  document.getElementById('confirmAction').onclick = async function() {
+    await supabase.from('questions').delete().eq('id', qId);
     closeConfirmModal();
+    await loadData();
     renderQuestionList();
   };
   document.getElementById('confirmModal').classList.add('open');
-}
+};
 
 // ── INIT ──
-renderTopics();
+await loadData();
 </script>
 </body>
 </html>
