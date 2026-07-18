@@ -196,6 +196,31 @@
   .ai-gen-btn:disabled { opacity: 0.5; cursor: not-allowed; }
   .ai-gen-status { font-size: 12px; color: var(--text-dim); padding: 4px 0; }
 
+  /* ── GENERATE QUIZ BUTTON ON TOPIC CARDS ── */
+  .gen-quiz-btn {
+    position: absolute; bottom: 10px; right: 10px;
+    padding: 5px 12px; border-radius: 8px;
+    border: 1px solid var(--accent);
+    background: rgba(124,92,252,0.12);
+    color: var(--accent); font-size: 12px; font-weight: 700;
+    cursor: pointer; transition: all 0.15s;
+    opacity: 0; pointer-events: none; z-index: 2;
+  }
+  .topic-card:hover .gen-quiz-btn { opacity: 1; pointer-events: all; }
+  .gen-quiz-btn:hover { background: rgba(124,92,252,0.25); transform: scale(1.04); }
+
+  /* ── MASTERY BADGE ── */
+  .mastery-badge {
+    position: absolute; top: 10px; left: 10px;
+    padding: 3px 10px; border-radius: 8px;
+    font-size: 12px; font-weight: 800; z-index: 2;
+    color: #fff; letter-spacing: 0.3px;
+  }
+  .mastery-badge.high { background: var(--green); color: #000; }
+  .mastery-badge.mid { background: var(--orange); color: #000; }
+  .mastery-badge.low { background: var(--red); }
+  .mastery-badge.none { background: var(--border); color: var(--text-dim); }
+
   .loading-screen { display: flex; justify-content: center; align-items: center; min-height: 60vh; }
   .spinner { width: 40px; height: 40px; border: 4px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
@@ -415,6 +440,26 @@
   </div>
 </div>
 
+<!-- GENERATE QUIZ MODAL -->
+<div class="modal-overlay" id="generateQuizModal">
+  <div class="modal" style="max-width:400px">
+    <div class="modal-title">
+      <span id="gqTitle">🤖 Generate Quiz</span>
+      <button class="modal-close" onclick="closeGenerateModal()">✕</button>
+    </div>
+    <p id="gqDesc" style="font-size:14px;color:var(--text-dim);margin-bottom:18px;line-height:1.5">Choose how many AI-generated questions you want, then take the quiz right away.</p>
+    <div class="form-group">
+      <label class="form-label">Number of Questions</label>
+      <input class="form-input" id="gqCount" type="number" min="1" max="20" value="5" />
+    </div>
+    <div class="ai-gen-status" id="gqStatus"></div>
+    <div class="btn-row">
+      <button class="action-btn action-secondary" onclick="closeGenerateModal()">Cancel</button>
+      <button class="action-btn action-primary" id="gqStartBtn" onclick="startGeneratedQuiz()">🤖 Generate & Start</button>
+    </div>
+  </div>
+</div>
+
 <script type="module">
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
@@ -427,6 +472,7 @@ const colorPalette = ['#7c5cfc','#34d399','#fb923c','#facc15','#f87171','#a78bfa
 
 let allTopics = [];
 let allQuestions = [];
+let allQuizResults = [];
 let currentTopic = null;
 let currentQ = 0;
 let score = 0;
@@ -438,6 +484,7 @@ let managingTopicId = null;
 let editingQuestionIdx = null;
 let selectedIcon = '📚';
 let selectedColor = '#7c5cfc';
+let generatingTopicId = null;
 
 function renderIconPalette(sel) {
   return iconPalette.map(icon => `<div class="icon-pick${icon===sel?' selected':''}" onclick="window.pickIcon('${icon}',this)">${icon}</div>`).join('');
@@ -457,11 +504,23 @@ window.pickColor = function(color, el) {
 };
 
 async function loadData() {
-  const { data: topics } = await supabase.from('topics').select('*').order('created_at');
-  const { data: questions } = await supabase.from('questions').select('*').order('position');
+  const [{ data: topics }, { data: questions }, { data: results }] = await Promise.all([
+    supabase.from('topics').select('*').order('created_at'),
+    supabase.from('questions').select('*').order('position'),
+    supabase.from('quiz_results').select('*').order('created_at', { ascending: false })
+  ]);
   allTopics = topics || [];
   allQuestions = questions || [];
+  allQuizResults = results || [];
   renderTopics();
+}
+
+function getMasteryForTopic(topicId) {
+  const results = allQuizResults.filter(r => r.topic_id === topicId);
+  if (results.length === 0) return null;
+  const totalScore = results.reduce((sum, r) => sum + r.score, 0);
+  const totalPossible = results.reduce((sum, r) => sum + r.total, 0);
+  return totalPossible === 0 ? null : Math.round((totalScore / totalPossible) * 100);
 }
 
 function getQuestionsForTopic(topicId) {
@@ -472,14 +531,19 @@ function renderTopics() {
   const list = document.getElementById('topicsList');
   list.innerHTML = allTopics.map((t, i) => {
     const qCount = getQuestionsForTopic(t.id).length;
+    const mastery = getMasteryForTopic(t.id);
+    const masteryBadge = mastery !== null
+      ? `<div class="mastery-badge ${mastery >= 80 ? 'high' : mastery >= 50 ? 'mid' : 'low'}">${mastery}% Mastery</div>`
+      : `<div class="mastery-badge none">No quizzes</div>`;
     return `
     <div class="topic-card animate delay-${i % 4 + 1}" onclick="window.startQuiz('${t.id}')">
+      ${masteryBadge}
       <div class="topic-actions">
         <button class="topic-action-btn" onclick="event.stopPropagation(); window.openTopicModal('${t.id}')" title="Edit">✎</button>
         <button class="topic-action-btn" onclick="event.stopPropagation(); window.openQuestionModal('${t.id}')" title="Questions">☰</button>
         <button class="topic-action-btn delete" onclick="event.stopPropagation(); window.confirmDeleteTopic('${t.id}')" title="Delete">✕</button>
       </div>
-      <div class="topic-icon" style="background:${t.color}22">${t.icon}</div>
+      <div class="topic-icon" style="background:${t.color}22; margin-top: 18px;">${t.icon}</div>
       <div class="topic-info">
         <div class="topic-name">${t.name}</div>
         <div class="topic-meta">${qCount} questions · ${t.difficulty}</div>
@@ -488,6 +552,7 @@ function renderTopics() {
         </div>
       </div>
       <div class="topic-arrow">›</div>
+      <button class="gen-quiz-btn" onclick="event.stopPropagation(); window.openGenerateModal('${t.id}')">🤖 Generate Quiz</button>
     </div>`;
   }).join('');
   updateStats();
@@ -505,17 +570,81 @@ function showScreen(id) {
 }
 window.goHome = function() { showScreen('homeScreen'); };
 
+// ── GENERATE QUIZ MODAL ──
+window.openGenerateModal = function(topicId) {
+  generatingTopicId = topicId;
+  const t = allTopics.find(x => x.id === topicId);
+  document.getElementById('gqTitle').textContent = `🤖 Generate ${t.name} Quiz`;
+  document.getElementById('gqDesc').textContent = `Generate AI-powered multiple-choice questions for ${t.name}. They'll be used for this quiz only — not saved to the database.`;
+  document.getElementById('gqCount').value = 5;
+  document.getElementById('gqStatus').textContent = '';
+  document.getElementById('gqStartBtn').disabled = false;
+  document.getElementById('gqStartBtn').textContent = '🤖 Generate & Start';
+  document.getElementById('generateQuizModal').classList.add('open');
+};
+window.closeGenerateModal = function() {
+  document.getElementById('generateQuizModal').classList.remove('open');
+};
+
+window.startGeneratedQuiz = async function() {
+  const t = allTopics.find(x => x.id === generatingTopicId);
+  if (!t) return;
+  const count = Math.min(20, Math.max(1, parseInt(document.getElementById('gqCount').value) || 5));
+  const btn = document.getElementById('gqStartBtn');
+  const status = document.getElementById('gqStatus');
+
+  btn.disabled = true;
+  btn.textContent = 'Generating...';
+  status.textContent = `Asking AI to generate ${count} ${t.name} questions...`;
+
+  try {
+    const res = await fetch('/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ topic: t.name, count, difficulty: t.difficulty })
+    });
+    const data = await res.json();
+    if (!data.questions || !Array.isArray(data.questions) || data.questions.length === 0) {
+      throw new Error(data.error || 'AI returned no questions.');
+    }
+
+    const transientQs = data.questions.map((q, i) => ({
+      id: 'ai_' + Date.now() + '_' + i,
+      topic_id: t.id,
+      position: i,
+      question_text: q.q,
+      options: q.opts || q.options || ['A','B','C','D'],
+      answer: q.answer || 0,
+      explanation: q.explain || '',
+      _transient: true
+    }));
+
+    closeGenerateModal();
+    window.startQuizWithQuestions(t.id, transientQs, true);
+  } catch (e) {
+    status.textContent = 'Error: ' + e.message;
+    btn.disabled = false;
+    btn.textContent = '🤖 Generate & Start';
+  }
+};
+
 // ── QUIZ ──
-window.startQuiz = async function(topicId) {
+window.startQuizWithQuestions = function(topicId, questions, isAiGenerated) {
   currentTopic = allTopics.find(t => t.id === topicId);
-  const qs = getQuestionsForTopic(topicId);
-  if (!currentTopic || qs.length === 0) return;
-  currentTopic._quiz = qs;
+  if (!currentTopic || !questions || questions.length === 0) return;
+  currentTopic._quiz = questions;
+  currentTopic._isAiQuiz = !!isAiGenerated;
   currentQ = 0; score = 0; answered = false; startTime = Date.now();
-  quizResults = new Array(qs.length).fill(null);
+  quizResults = new Array(questions.length).fill(null);
   document.getElementById('quizTopicLabel').textContent = currentTopic.icon + ' ' + currentTopic.name;
   showScreen('quizScreen');
   renderQuestion();
+};
+
+window.startQuiz = async function(topicId) {
+  const qs = getQuestionsForTopic(topicId);
+  if (!qs || qs.length === 0) return;
+  window.startQuizWithQuestions(topicId, qs, false);
 };
 
 function renderQuestion() {
@@ -583,9 +712,33 @@ function showResults() {
   document.getElementById('resTime').textContent = elapsed + 's';
   showScreen('resultsScreen');
   renderAIExplanations();
+
+  // Save quiz result to Supabase
+  if (currentTopic && currentTopic._quiz) {
+    const total = currentTopic._quiz.length;
+    supabase.from('quiz_results').insert({
+      topic_id: currentTopic.id,
+      score,
+      total,
+      is_ai_generated: !!currentTopic._isAiQuiz
+    }).then(() => {
+      // Refresh mastery after saving
+      supabase.from('quiz_results').select('*').order('created_at', { ascending: false }).then(({ data }) => {
+        allQuizResults = data || [];
+        renderTopics();
+      });
+    });
+  }
 }
 
-window.retryQuiz = function() { if (currentTopic) window.startQuiz(currentTopic.id); };
+window.retryQuiz = function() {
+  if (!currentTopic) return;
+  if (currentTopic._isAiQuiz) {
+    window.openGenerateModal(currentTopic.id);
+  } else {
+    window.startQuiz(currentTopic.id);
+  }
+};
 
 // ── TOPIC CRUD ──
 window.openTopicModal = function(topicId) {
